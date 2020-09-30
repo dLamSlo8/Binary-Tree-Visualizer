@@ -8,7 +8,7 @@ export default () => {
 
     const [treeString, setTreeString] = useState('');
     const [rootNode, setRootNode] = useState(null);
-    const [parseErr, setParseErr] = useState(false);
+    const [parseErr, setParseErr] = useState('');
     const [inputErr, setInputErr] = useState(false);
 
 
@@ -42,11 +42,17 @@ export default () => {
         
         try {
             let parsedStr = JSON.parse(treeString);
-            setParseErr(false);
-            setRootNode(parseTree(parsedStr));
+            
+            try {
+                setRootNode(parseTree(parsedStr));
+                setParseErr('');
+            }
+            catch (err) {
+                setParseErr(err);
+            }
         }
         catch (err) {
-            setParseErr(true);
+            setParseErr('There was an error when parsing your string. Please check that it is formatted correctly!');
         }
     }
 
@@ -71,7 +77,7 @@ export default () => {
             </form>
             {
                 parseErr && (
-                    <p className="error error--center app-main__parse-error">There was an error when parsing your string. Please check that it is formatted correctly!</p>
+                    <p className="error error--center app-main__parse-error">{parseErr}</p>
                 )
             }
             <BinaryTree rootNode={rootNode} />
