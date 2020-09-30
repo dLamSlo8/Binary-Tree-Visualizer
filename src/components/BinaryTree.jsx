@@ -5,7 +5,7 @@ export default ({ rootNode }) => {
     console.log(rootNode);
     const generateNodeData = (root) => {
         if (root === null) {
-            return { name: -1 };
+            return { name: null };
         }
 
         if (root.left === null && root.right === null) { // End case
@@ -29,13 +29,11 @@ export default ({ rootNode }) => {
             console.log(data);
 
             // Generate binary tree using d3.
-            console.log(document.querySelector('.app-main'));
-            console.log(document.documentElement.clientWidth);
+
             const hierarchyNode = d3.hierarchy((data));
             const width = hierarchyNode.height * 150;
             const height = hierarchyNode.height * 100;
 
-            console.log(d3.hierarchy(data));
             const tree = d3.tree().size([width, height])(d3.hierarchy(data));
             console.log(tree);
             const canvas = d3.select('#tree').append('svg')
@@ -45,7 +43,7 @@ export default ({ rootNode }) => {
                 .append('g')
                     .attr('transform', 'translate(10, 22)');
 
-            const nodes = tree.descendants().filter((node) => node.data.name !== -1);
+            const nodes = tree.descendants().filter((node) => node.data.name !== null);
             console.log(nodes);
             
             const links = tree.links();
