@@ -6,7 +6,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 1rem;
+    padding: 1rem 1rem 2rem 1rem;
 
     @include mq('sm') {
         padding: 3rem 6rem;
@@ -20,6 +20,7 @@
         }
         text-align: center;
         max-width: 1000px;
+        margin-top: 0;
     }
 
     &__subheading-strong {
@@ -30,6 +31,7 @@
         font-family: var(--font-primary);
         border-spacing: 0;
         border-collapse: collapse;
+        margin-top: 1.5rem;
     }
 
     &__control-header {
@@ -79,10 +81,18 @@
     }
 
     &__submit {
-        margin-top: 2rem;
+        margin-top: 1rem;
+        @include mq('sm') {
+            margin-top: 2rem;
+        }
+
         padding: 0.75rem 1.5rem;
         font-family: var(--font-secondary);
-        font-size: 1.25rem;
+        font-size: 1rem;
+        @include mq('sm') {
+            font-size: 1.25rem;
+        }
+        
         border: none;
         background-color: var(--color-primary);
         color: var(--color-secondary);

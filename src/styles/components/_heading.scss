@@ -3,7 +3,11 @@
     font-size: 1.5rem;
 
     &--lg {
-        font-size: 2rem;
+        font-size: 1.5rem;
+
+        @include mq('sm') {
+            font-size: 2rem;
+        }
     }
 
     &--xl {
