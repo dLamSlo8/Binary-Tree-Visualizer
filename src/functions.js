@@ -1,4 +1,4 @@
-class Node {
+export class Node {
     constructor(value) {
         this.value = value;
         this.left = null;
@@ -6,27 +6,28 @@ class Node {
     }
 }
 
-var test = "[1, [5, null, null], [4, [7, [4, null, null], [8, null, null]], [12, null, null]]]";
-const parseTree = (s) => {
+export const parseTree = (s) => {
     if (s === null) {
         return null;
+    }
+
+    if (s.length !== 3) {
+        throw "A binary tree must have 2 children per node."
     }
 
     var node = new Node(s[0])
 
     node.left = parseTree(s[1]);
     node.right = parseTree(s[2]);
-
     return node;
 }
 
-const printTree = (node) => {
+export const printTree = (node) => {
     var q = [];
 
     q.push(node);
     while (q.length > 0) {
         var first = q.shift();
-        console.log(first.value);
         if (first.left !== null) {
             q.push(first.left);
         }
@@ -36,6 +37,3 @@ const printTree = (node) => {
         }
     }
 }
-
-var x = parseTree(JSON.parse(test));
-printTree(x);
