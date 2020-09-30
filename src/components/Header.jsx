@@ -7,12 +7,12 @@ export default () => {
             <p className="app-header__subheading">
                 The <a className="app-header__subheading-strong" href="http://binarysearch.com"><strong>binarysearch</strong></a> website currently does not support a 
                 binary tree visualization tool that exists in other sites like Leetcode. This tools helps to resolve that.
-                Simply input the tree array and see the populated tree.
+                Simply input the tree array and see the populated tree that is pannable and zoomable.
             </p>
             <table className="app-header__controls">
                 <thead>
                     <tr>
-                        <th className="heading app-header__control-header" colSpan="3">Controls</th>
+                        <th className="heading heading--lg app-header__control-header" colSpan="3">Controls</th>
                     </tr>
                     <tr>
                         <th className="app-header__control-cell"></th>
