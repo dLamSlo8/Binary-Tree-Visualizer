@@ -1,4 +1,4 @@
-class Node {
+export class Node {
     constructor(value) {
         this.value = value;
         this.left = null;
@@ -6,8 +6,8 @@ class Node {
     }
 }
 
-var test = "[1, [5, null, null], [4, [7, [4, null, null], [8, null, null]], [12, null, null]]]";
-const parseTree = (s) => {
+var test = "[1, [5, [3, null, null], null], [4, [7, [4, null, null], [8, null, null]], [12, null, null]]]";
+export const parseTree = (s) => {
     if (s === null) {
         return null;
     }
@@ -20,7 +20,7 @@ const parseTree = (s) => {
     return node;
 }
 
-const printTree = (node) => {
+export const printTree = (node) => {
     var q = [];
 
     q.push(node);
