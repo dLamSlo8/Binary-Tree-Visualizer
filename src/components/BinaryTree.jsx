@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import * as d3 from 'd3';
 
 export default ({ rootNode }) => {
-    console.log(rootNode);
     const generateNodeData = (root) => {
         if (root === null) {
             return { name: null };
@@ -11,8 +10,6 @@ export default ({ rootNode }) => {
         if (root.left === null && root.right === null) { // End case
             return { name: root.value };
         }
-
-
 
         let data = { name: root.value, children: [
             generateNodeData(root.left),
@@ -31,40 +28,61 @@ export default ({ rootNode }) => {
             // Generate binary tree using d3.
 
             const hierarchyNode = d3.hierarchy((data));
-            const width = hierarchyNode.height * 150;
+            const width = hierarchyNode.height * 200;
             const height = hierarchyNode.height * 100;
 
             const tree = d3.tree().size([width, height])(d3.hierarchy(data));
             console.log(tree);
-            const canvas = d3.select('#tree').append('svg')
+            const canvas = d3.select('#tree')
+                .append('svg')
                 .attr('id', 'tree-svg')
                 .attr('width', width)
                 .attr('height', height + 50)
                 .append('g')
-                    .attr('transform', 'translate(10, 22)');
+                .attr('transform', 'translate(0, 22)');
+
+            canvas.append('g')
+                .attr('class', 'links');
+
+            canvas.append('g')
+                .attr('class', 'nodes');
 
             const nodes = tree.descendants().filter((node) => node.data.name !== null);
             console.log(nodes);
             
-            const links = tree.links();
+            const links = tree.links().filter((link) => link.source.data.name !== null && link.target.data.name !== null);
 
+            canvas.select('g.links')
+                .selectAll('.link')
+                .data(links)
+                .enter()
+                .append('line')
+                .attr('class', 'link')
+                .attr('stroke', 'black')
+                .attr('class', 'link')
+                .attr('x1', function(d) {return d.source.x;})
+                .attr('y1', function(d) {return d.source.y;})
+                .attr('x2', function(d) {return d.target.x;})
+                .attr('y2', function(d) {return d.target.y;});
             // Create individual nodes
-            let node = canvas.selectAll('.node') 
+            canvas.select('g.nodes')
+                .selectAll('.node') 
                 .data(nodes)
                 .enter()
-                .append('g')
-                    .attr('class', 'node');
-
-            // Style individual nodes (circle with text inside)
-            node.append('circle')
+                .append('circle')
+                .attr('class', 'node')
                 .attr('r', 20)
                 .attr('cx', function(d) { return d.x; })
                 .attr('cy', function(d) { return d.y; })
-                .attr('fill', 'none')
+                .attr('fill', 'white')
                 .attr('stroke', 'black')
                 .attr('stroke-width', '2');
 
-            node.append('text')
+            canvas.select('g.nodes')
+                .selectAll('.text')
+                .data(nodes)
+                .enter()
+                .append('text')
                 .text(function(d) { return d.data.name; })
                 .attr('x', function(d) { return d.x; })
                 .attr('y', function(d) { return d.y; })
