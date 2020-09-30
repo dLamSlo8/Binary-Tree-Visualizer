@@ -25,7 +25,6 @@ export default ({ rootNode }) => {
 
             d3.select('#tree-svg').remove(); // Remove previous tree if any. 
             const data = generateNodeData(rootNode);
-            console.log(data);
 
             // Generate binary tree using d3.
 
@@ -34,7 +33,6 @@ export default ({ rootNode }) => {
             const height = hierarchyNode.height * 100;
 
             const tree = d3.tree().size([width, height])(d3.hierarchy(data));
-            console.log(tree);
             const canvas = d3.select('#tree')
                 .append('svg')
                 .attr('id', 'tree-svg')
@@ -63,7 +61,6 @@ export default ({ rootNode }) => {
                 .attr('class', 'nodes');
 
             const nodes = tree.descendants().filter((node) => node.data.name !== null);
-            console.log(nodes);
             
             const links = tree.links().filter((link) => link.source.data.name !== null && link.target.data.name !== null);
 

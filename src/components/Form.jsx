@@ -24,8 +24,23 @@ export default () => {
 
     const validate = (e) => {
         e.preventDefault();
+        let { name: { value: name }, email: { value: email }, message: { value: message }} = formData;
+        
+        let formDataWithErr = {
+            name: {
+                value: name,
+                error: ''
+            },
+            email: {
+                value: email,
+                error: ''
+            },
+            message: {
+                value: message,
+                error: ''
+            }
+        };
 
-        let formDataWithErr = { ...formData };
         let valid = true;
 
         if (formData.name.value === '') {
