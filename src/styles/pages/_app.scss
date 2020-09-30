@@ -24,15 +24,27 @@
     padding: 0 2rem 2rem 2rem;
     
     &__form {
+        position: relative;
         display: flex;
         flex-direction: column;
         align-items: center;
     }
 
+    &__input-wrapper {
+        position: relative;
+        width: 75%;
+        display: flex;
+        justify-content: center;
+    }
+
     &__input {
         padding: 0.5rem 1rem;
-        width: 75%;
+        width: 100%;
         box-sizing: border-box;
+
+        &--error {
+            border: 2px solid var(--color-error);
+        }
     }
 
     &__submit {
@@ -50,6 +62,18 @@
         &:hover {
             background-color: var(--color-primary-dark);
         }
+    }
+
+    &__input-error {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        margin-top: 0.5rem;
+        font-size: 0.75rem;
+    }
+
+    &__parse-error {
+        margin-top: 2rem;
     }
 }
 

@@ -8,8 +8,11 @@ export default () => {
 
     const [treeString, setTreeString] = useState('');
     const [rootNode, setRootNode] = useState(null);
-    console.log(treeString);
-    const handleVisualize = (e) => {
+    const [parseErr, setParseErr] = useState(false);
+    const [inputErr, setInputErr] = useState(false);
+
+
+    const handleVisualize = (e) => { // 
         e.preventDefault();
         // db.doc("Uses/5WPHzCgbQL7TKudM6Hdy").get().then((doc) => {
         //     if (doc && doc.exists) {
@@ -17,7 +20,7 @@ export default () => {
         //     }
         // })
 
-        var ref = db.collection("Uses").doc("5WPHzCgbQL7TKudM6Hdy");
+        let ref = db.collection("Uses").doc("5WPHzCgbQL7TKudM6Hdy");
 
         if (process.env.NODE_ENV === "development") {
             ref.update({
@@ -31,20 +34,46 @@ export default () => {
             })
         }
 
-        setRootNode(parseTree(JSON.parse(treeString)));
+        setInputErr(!treeString);
+
+        if (!treeString) {
+            return ;
+        }
+        
+        try {
+            let parsedStr = JSON.parse(treeString);
+            setParseErr(false);
+            setRootNode(parseTree(parsedStr));
+        }
+        catch (err) {
+            setParseErr(true);
+        }
     }
 
     return (
         <main className="app-main">
             <form className="app-main__form" onSubmit={(e) => handleVisualize(e)}>
-                <input 
-                className="app-main__input"
-                type="text"
-                placeholder="Enter binary tree array" 
-                value={treeString} 
-                onChange={(e) => setTreeString(e.target.value)} />
+                <div className="app-main__input-wrapper">
+                    <input 
+                    className={`app-main__input ${inputErr ? 'app-main__input--error' : ''}`}
+                    type="text"
+                    aria-label="Binary Tree Array"
+                    placeholder="Enter binary tree array" 
+                    value={treeString} 
+                    onChange={(e) => setTreeString(e.target.value)} />
+                    {
+                        inputErr && (
+                            <p className="error app-main__input-error">This is a required field</p>
+                        )
+                    }
+                </div>
                 <button className="app-main__submit">Visualize</button>
             </form>
+            {
+                parseErr && (
+                    <p className="error error--center app-main__parse-error">There was an error when parsing your string. Please check that it is formatted correctly!</p>
+                )
+            }
             <BinaryTree rootNode={rootNode} />
         </main>
     )

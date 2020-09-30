@@ -1,0 +1,9 @@
+.error {
+    font-family: var(--font-secondary);
+    font-weight: bold;
+    color: var(--color-error);
+
+    &--center {
+        text-align: center;
+    }
+}
