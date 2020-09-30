@@ -11,7 +11,11 @@
     }
 
     &--xxl {
-        font-size: 3rem;
+        font-size: 2rem;
+
+        @include mq('sm') {
+            font-size: 3rem;
+        }
     }
 
     &--primary {

@@ -21,6 +21,8 @@ export default ({ rootNode }) => {
 
     useEffect(() => {
         if (rootNode) {
+
+
             d3.select('#tree-svg').remove(); // Remove previous tree if any. 
             const data = generateNodeData(rootNode);
             console.log(data);
@@ -28,7 +30,7 @@ export default ({ rootNode }) => {
             // Generate binary tree using d3.
 
             const hierarchyNode = d3.hierarchy((data));
-            const width = hierarchyNode.height ? (2 ** hierarchyNode.height) * 75 : 50;
+            const width = hierarchyNode.height ? hierarchyNode.height * 200 : 50;
             const height = hierarchyNode.height * 100;
 
             const tree = d3.tree().size([width, height])(d3.hierarchy(data));
@@ -36,10 +38,24 @@ export default ({ rootNode }) => {
             const canvas = d3.select('#tree')
                 .append('svg')
                 .attr('id', 'tree-svg')
-                .attr('width', width)
+                .attr('cursor', 'grab')
+                .attr('width', Math.min(width, document.documentElement.clientWidth - 50))
                 .attr('height', height + 50)
                 .append('g')
                 .attr('transform', 'translate(0, 22)');
+
+            d3.select('#tree-svg').call(d3.zoom()
+                .extent([[0, 0], [width, height + 50]])
+                .scaleExtent([0.5, 8])
+                .filter(function filter(event) {
+                    console.log(event);
+                    return event.shiftKey;
+                })
+                .on('zoom', function zoomed({transform}) {
+                    d3.select('#tree-svg g')
+                        .attr('transform', transform);
+                }))
+
 
             canvas.append('g')
                 .attr('class', 'links');
