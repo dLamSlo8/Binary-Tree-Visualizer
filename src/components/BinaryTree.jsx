@@ -28,7 +28,7 @@ export default ({ rootNode }) => {
             // Generate binary tree using d3.
 
             const hierarchyNode = d3.hierarchy((data));
-            const width = hierarchyNode.height * 200;
+            const width = hierarchyNode.height ? (2 ** hierarchyNode.height) * 75 : 50;
             const height = hierarchyNode.height * 100;
 
             const tree = d3.tree().size([width, height])(d3.hierarchy(data));
