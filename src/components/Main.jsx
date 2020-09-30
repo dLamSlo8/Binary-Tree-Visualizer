@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { parseTree } from '../functions';
 import BinaryTree from './BinaryTree';
+import Form from './Form';
 import db from "../database.js";
 import firebase from "firebase";
 
 export default () => {
 
-    const [treeString, setTreeString] = useState('');
+    const [treeString, setTreeString] = useState('[1, [2, [4, null, null], null], [3, null, [5, null, null]]]');
     const [rootNode, setRootNode] = useState(null);
     const [parseErr, setParseErr] = useState('');
     const [inputErr, setInputErr] = useState(false);
@@ -56,12 +57,16 @@ export default () => {
         }
     }
 
+    useEffect(() => {
+        setRootNode(parseTree(JSON.parse(treeString)));
+    }, []);
+
     return (
         <main className="app-main">
             <form className="app-main__form" onSubmit={(e) => handleVisualize(e)}>
                 <div className="app-main__input-wrapper">
                     <input 
-                    className={`app-main__input ${inputErr ? 'app-main__input--error' : ''}`}
+                    className={`input ${inputErr ? 'input--error' : ''}`}
                     type="text"
                     aria-label="Binary Tree Array"
                     placeholder="Enter binary tree array" 
@@ -73,7 +78,7 @@ export default () => {
                         )
                     }
                 </div>
-                <button className="app-main__submit">Visualize</button>
+                <button className="app-submit">Visualize</button>
             </form>
             {
                 parseErr && (
@@ -81,6 +86,7 @@ export default () => {
                 )
             }
             <BinaryTree rootNode={rootNode} />
+            <Form />
         </main>
     )
 }
