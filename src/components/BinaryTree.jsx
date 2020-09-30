@@ -48,8 +48,7 @@ export default ({ rootNode }) => {
                 .extent([[0, 0], [width, height + 50]])
                 .scaleExtent([0.5, 8])
                 .filter(function filter(event) {
-                    console.log(event);
-                    return event.shiftKey;
+                    return document.documentElement.clientWidth <= 640 || event.shiftKey;
                 })
                 .on('zoom', function zoomed({transform}) {
                     d3.select('#tree-svg g')
