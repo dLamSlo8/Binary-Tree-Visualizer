@@ -12,17 +12,24 @@ export default () => {
             <table className="app-header__controls">
                 <thead>
                     <tr>
-                        <th className="heading app-header__control-header" colSpan="2">Controls</th>
+                        <th className="heading app-header__control-header" colSpan="3">Controls</th>
+                    </tr>
+                    <tr>
+                        <th className="app-header__control-cell"></th>
+                        <th className="app-header__control-cell">Desktop</th>
+                        <th className="app-header__control-cell">Mobile</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td className="app-header__control-cell"><strong>Pan</strong></td>
                         <td className="app-header__control-cell">Shift + Click</td>
+                        <td className="app-header__control-cell">Drag</td>
                     </tr>
                     <tr>
                         <td className="app-header__control-cell"><strong>Zoom</strong></td>
                         <td className="app-header__control-cell">Shift + Scroll</td>
+                        <td className="app-header__control-cell">Pinch/Spread</td>
                     </tr>
                 </tbody>
             </table>
