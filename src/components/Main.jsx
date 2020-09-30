@@ -3,7 +3,8 @@ import { parseTree } from '../functions';
 import BinaryTree from './BinaryTree';
 import Form from './Form';
 import db from "../database.js";
-import firebase from "firebase";
+import firebase from 'firebase/app';
+import 'firebase/firestore';
 
 export default () => {
 
