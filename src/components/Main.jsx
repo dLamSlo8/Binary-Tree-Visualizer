@@ -15,11 +15,6 @@ export default () => {
 
     const handleVisualize = (e) => { // 
         e.preventDefault();
-        // db.doc("Uses/5WPHzCgbQL7TKudM6Hdy").get().then((doc) => {
-        //     if (doc && doc.exists) {
-        //         console.log(doc.data())
-        //     }
-        // })
 
         let ref = db.collection("Uses").doc("5WPHzCgbQL7TKudM6Hdy");
 
