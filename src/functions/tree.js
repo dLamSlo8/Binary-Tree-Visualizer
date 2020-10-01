@@ -37,3 +37,19 @@ export const printTree = (node) => {
         }
     }
 }
+
+export const nodeToString = (node) => {
+    if (node === null) {
+        return ("null");
+    }
+
+    var s = "[";
+    s += node.value + ", ";
+
+    s += nodeToString(node.left) + ", ";
+    s += nodeToString(node.right);
+
+    s += "]";
+
+    return s;
+}
