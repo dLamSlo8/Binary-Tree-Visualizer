@@ -96,76 +96,74 @@ describe ("Test nodeToString method", () => {
     })
 })
 
-// describe("Test replace node value", () => {
-//     it ("Should create new node to replace existing node", () => {
-//         var input = new Node(0, 0);
-//         var root = new Node(1, 123);
-//         input.right = root;
+describe("Test replace node value", () => {
+    it ("Should create new node to replace existing node", () => {
+        var input = new Node(1, 123);
 
-//         var expected = new Node(5, 123);
+        var expected = new Node(5, 123);
 
-//         var result = replaceNodeValue(input, 5, 123);
+        var result = replaceNodeValue(input, 5, NaN, NaN, 123);
         
-//         expect(result).toMatchObject(expected);
+        expect(result).toMatchObject(expected);
 
-//         var input = new Node(0, 0);
-//         var root = new Node(1, 123);
-//         input.right = root;
-//         root.right = new Node(4, 111);
-//         root.right.left = new Node(6, 964);
-//         root.right.right = new Node(7, 432);
+        var input = new Node(0, 0);
+        var root = new Node(1, 123);
+        input.right = root;
+        root.right = new Node(4, 111);
+        root.right.left = new Node(6, 964);
+        root.right.right = new Node(7, 432);
 
-//         var expected = new Node(5, 123);
-//         expected.right = new Node(4, 111);
-//         expected.right.left = new Node(6, 964);
-//         expected.right.right = new Node(7, 432);
+        var expected = new Node(5, 123);
+        expected.right = new Node(4, 111);
+        expected.right.left = new Node(6, 964);
+        expected.right.right = new Node(7, 432);
 
-//         var result = replaceNodeValue(input, 5, 123);
+        var result = replaceNodeValue(input, 5, 123);
         
-//         expect(result).toMatchObject(expected);
+        expect(result).toMatchObject(expected);
 
-//         var input = new Node(0, 0);
-//         var root = new Node(-1, 123);
-//         input.right = root;
-//         root.left = new Node(-2, 111);
-//         root.left.left = new Node(2, 964);
-//         root.right = new Node(0, 432);
-//         root.right.right = new Node(-3, 231);
-//         root.right.right.right = new Node(-3, 777);
+        var input = new Node(0, 0);
+        var root = new Node(-1, 123);
+        input.right = root;
+        root.left = new Node(-2, 111);
+        root.left.left = new Node(2, 964);
+        root.right = new Node(0, 432);
+        root.right.right = new Node(-3, 231);
+        root.right.right.right = new Node(-3, 777);
 
-//         var expected = new Node(-1, 123);
-//         expected.left = new Node(-2, 111);
-//         expected.left.left = new Node(2, 964);
-//         expected.right = new Node(0, 432);
-//         expected.right.right = new Node(-3, 231);
-//         expected.right.right.right = new Node(-2, 777);
+        var expected = new Node(-1, 123);
+        expected.left = new Node(-2, 111);
+        expected.left.left = new Node(2, 964);
+        expected.right = new Node(0, 432);
+        expected.right.right = new Node(-3, 231);
+        expected.right.right.right = new Node(-2, 777);
 
-//         var result = replaceNodeValue(input, -2, 777);
+        var result = replaceNodeValue(input, -2, 777);
 
-//         expect(result).toMatchObject(expected);
+        expect(result).toMatchObject(expected);
 
-//         var input = new Node(0, 0);
-//         var root = new Node(-1, 123);
-//         input.right = root;
-//         root.left = new Node(-2, 111);
-//         root.left.left = new Node(2, 964);
-//         root.right = new Node(0, 432);
-//         root.right.right = new Node(-3, 231);
-//         root.right.right.right = new Node(-3, 777);
+        var input = new Node(0, 0);
+        var root = new Node(-1, 123);
+        input.right = root;
+        root.left = new Node(-2, 111);
+        root.left.left = new Node(2, 964);
+        root.right = new Node(0, 432);
+        root.right.right = new Node(-3, 231);
+        root.right.right.right = new Node(-3, 777);
 
-//         var expected = new Node(-1, 123);
-//         expected.left = new Node(-2, 111);
-//         expected.left.left = new Node(0, 964);
-//         expected.right = new Node(0, 432);
-//         expected.right.right = new Node(-3, 231);
-//         expected.right.right.right = new Node(-3, 777);
+        var expected = new Node(-1, 123);
+        expected.left = new Node(-2, 111);
+        expected.left.left = new Node(0, 964);
+        expected.right = new Node(0, 432);
+        expected.right.right = new Node(-3, 231);
+        expected.right.right.right = new Node(-3, 777);
 
-//         var result = replaceNodeValue(input, 0, 964);
+        var result = replaceNodeValue(input, 0, 964);
 
-//         expect(result).toMatchObject(expected);
+        expect(result).toMatchObject(expected);
 
-//     })
-// })
+    })
+})
 
 describe ("Test inorder traversal", () => {
     it ("Should give proper inorder traversal", () => {
