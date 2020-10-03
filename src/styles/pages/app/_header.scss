@@ -1,0 +1,29 @@
+.app-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 1rem 2rem 1rem;
+
+    @include mq('sm') {
+        padding: 3rem 6rem;
+    }
+    
+    &__subheading {
+        font-family: var(--font-secondary);
+        font-weight: bold;
+        font-size: 1rem;
+        @include mq('sm') {
+            font-size: 1.25rem;
+        }
+        
+        text-align: center;
+        max-width: 1000px;
+        margin-top: 0;
+    }
+
+    &__subheading-strong {
+        color: var(--color-primary);
+    }
+
+
+}

@@ -6,33 +6,9 @@ export default () => {
             <h1 className="heading heading--xxl heading--center">Binary Tree Visualizer</h1>
             <p className="app-header__subheading">
                 The <a className="app-header__subheading-strong" href="http://binarysearch.com"><strong>binarysearch</strong></a> website currently does not support a 
-                binary tree visualization tool that exists in other sites like Leetcode. This tool helps to resolve that.
-                Simply input the tree array and see the populated tree that is both pannable and zoomable.
+                binary tree visualization tool that exists in other sites like Leetcode. This tool helps to resolve that. You can either input the tree array given by binarysearch,
+                or create yur own tree and copy it to binarysearch as a test case. The resulting tree is both pannable and zoomable.
             </p>
-            <table className="app-header__controls">
-                <thead>
-                    <tr>
-                        <th className="heading heading--lg app-header__control-header" colSpan="3">Controls</th>
-                    </tr>
-                    <tr>
-                        <th className="app-header__control-cell"></th>
-                        <th className="app-header__control-cell">Desktop</th>
-                        <th className="app-header__control-cell">Mobile</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td className="app-header__control-cell"><strong>Pan</strong></td>
-                        <td className="app-header__control-cell">Shift + Click</td>
-                        <td className="app-header__control-cell">Drag</td>
-                    </tr>
-                    <tr>
-                        <td className="app-header__control-cell"><strong>Zoom</strong></td>
-                        <td className="app-header__control-cell">Shift + Scroll</td>
-                        <td className="app-header__control-cell">Pinch/Spread</td>
-                    </tr>
-                </tbody>
-            </table>
         </header>
     )
 }

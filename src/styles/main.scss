@@ -9,5 +9,12 @@
 @import './components/input';
 @import './components/error';
 @import './components/heading';
+@import './components/button';
 
 @import './pages/app';
+@import './pages/app/header';
+@import './pages/main/main';
+@import './pages/binarysearch-input/binarysearch-input';
+@import './pages/custom-tree/custom-tree';
+@import './pages/custom-tree/actions';
+@import './pages/custom-tree/tree';
