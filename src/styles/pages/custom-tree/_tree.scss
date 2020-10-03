@@ -9,4 +9,9 @@
         font-weight: bold;
         font-style: italic;
     }    
+
+    &__tree-wrapper {
+        display: flex;
+        justify-content: center;
+    }
 }

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export const ValidationTypes = {
     required: {
@@ -58,6 +58,14 @@ export default ({ initValues, validationRules }) => {
             [name]: (type === 'checkbox' ? checked : value)
         }));
     };
+
+    useEffect(() => {
+        console.log('updated values');
+        if (formData) {
+            console.log('rip');
+            setFormData(initValues);
+        }
+    }, [initValues]);
 
     return { formData, errorMapping, handleChange, handleSubmit };
 }

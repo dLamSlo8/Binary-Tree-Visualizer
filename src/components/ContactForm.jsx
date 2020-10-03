@@ -118,7 +118,7 @@ export default () => {
             <div className="app-contact__input-wrapper">
                 <label className="app-contact__label" htmlFor="message">Message</label>
                 <textarea 
-                className={`input ${formData.message.error ? 'input--error' : ''}`}
+                className={`app-contact__textarea input ${formData.message.error ? 'input--error' : ''}`}
                 name="message" 
                 id="message" 
                 cols="30" 

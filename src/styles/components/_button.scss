@@ -20,6 +20,21 @@
         @include mq('sm') {
             margin-top: 2rem;
         }    
+
+        &-sm {
+            margin-top: 1rem;
+        }
+    }
+
+    &--space-b {
+        margin-bottom: 1rem;
+        @include mq('sm') {
+            margin-bottom: 2rem;
+        }
+
+        &-sm {
+            margin-bottom: 1rem;
+        }
     }
 
     &:hover {
@@ -35,6 +50,18 @@
         &:hover {
             color: var(--color-secondary);
             background-color: var(--color-primary);
+        }
+    }
+
+    &--disabled {
+        background-color: var(--color-light-gray);
+        color: var(--color-b-gray);
+
+        &:hover {
+            background-color: var(--color-light-gray);
+            color: var(--color-b-gray);
+            cursor: default;
+            box-shadow: none;
         }
     }
 

@@ -2,11 +2,19 @@ import { v4 as uuidv4 } from 'uuid';
 import * as d3 from 'd3';
 
 export class Node {
-    constructor(value, uuid) {
-        this.value = value;
-        this.left = null;
-        this.right = null;
-        this.uuid = uuid || uuidv4();
+    constructor(value, uuid, node) {
+        if (node) {
+            this.value = node.value;
+            this.left = node.left;
+            this.right = node.right;
+            this.uuid = node.uuid;
+        }
+        else {
+            this.value = value;
+            this.left = null;
+            this.right = null;
+            this.uuid = uuid || uuidv4();
+        }
     }
 }
 
@@ -55,7 +63,7 @@ export const nodeToString = (node) => {
         return ("null");
     }
 
-    var s = "[";
+    let s = "[";
     s += node.value + ", ";
 
     s += nodeToString(node.left) + ", ";
@@ -70,17 +78,36 @@ export const nodeToString = (node) => {
  * Creates new node to replace node
  * @param node - root node of tree structure
  * @param value - value to replace node value with
+ * @param left - value to replace node's left value with
+ * @param right - value to replace node's right value with
  * @param uuid - uuid of node we want to update value for
  */
-export const replaceNodeValue = (node, value, uuid) => {
+export const replaceNodeValue = (node, value, left, right, uuid) => {
     if (node === null) {
         return;
     }
-
+    console.log(node);
+    console.log(uuid);
     // Create new node to replace left
     if (node.left !== null && node.left.uuid === uuid) {
+        console.log("found it left");
+        console.log(uuid);
         let nextNode = new Node(value, uuid);
         let prevNode = node.left;
+        // Update left and right values
+        if (prevNode.left) {
+            prevNode.left.value = left;
+        }
+        else {
+            prevNode.left = new Node(left);
+        }
+        if (prevNode.right) {
+            prevNode.right.value = right;
+        }
+        else {
+            prevNode.right = new Node(right);
+        }
+
         node.left = nextNode;
         nextNode.left = prevNode === null ? null : prevNode.left;
         nextNode.right = prevNode === null ? null : prevNode.right;
@@ -91,14 +118,28 @@ export const replaceNodeValue = (node, value, uuid) => {
     if (node.right !== null && node.right.uuid === uuid) {
         let nextNode = new Node(value, uuid);
         let prevNode = node.right;
+        // Update left and right values
+        if (prevNode.left) {
+            prevNode.left.value = left;
+        }
+        else {
+            prevNode.left = new Node(left);
+        }
+        if (prevNode.right) {
+            prevNode.right.value = right;
+        }
+        else {
+            prevNode.right = new Node(right);
+        }
+
         node.right = nextNode;
         nextNode.left = prevNode === null ? null : prevNode.left;
         nextNode.right = prevNode === null ? null : prevNode.right;
         return node.right;
     }
 
-    replaceNodeValue(node.left, value, uuid);
-    replaceNodeValue(node.right, value, uuid);
+    replaceNodeValue(node.left, value, left, right, uuid);
+    replaceNodeValue(node.right, value, left, right, uuid);
 
     return node.right;
 }
@@ -277,6 +318,7 @@ export const nodeToD3 = (node) => {
         .attr('class', 'nodes');
 
     const nodes = tree.descendants().filter((node) => node.data.name !== null);
+    console.log(nodes)
     const links = tree.links().filter((link) => link.source.data.name !== null && link.target.data.name !== null);
 
     canvas.select('g.links')
@@ -321,7 +363,7 @@ export const nodeToD3 = (node) => {
     //     .append('text')
 
 
-    return { nodes, links };
+    return { nodes };
  }
 
 /**
@@ -332,13 +374,28 @@ export const nodeToD3 = (node) => {
  * @param handleActiveNodeChange - Callback function for when the active node changes (circle selected).
  */
 export const generateCustomizableD3Tree = (node, optimalWidth, activeUuid, handleActiveNodeChange) => {
-    const { nodes, links } = generateD3Tree(node, optimalWidth); // Generates initial tree
+    const { nodes } = generateD3Tree(node, optimalWidth); // Generates initial tree
 
     const circleNodes = d3.select('g.nodes') // Adds onClick listener!
         .selectAll('g.node')
         .data(nodes)
         .on('click', function (_, datum) {
-            handleActiveNodeChange(datum.data.uuid);
+            console.log(datum);
+            let activeNode = { 
+                uuid: datum.data.uuid,
+                current: datum.data.name    
+            };
+
+            if (datum.children) {
+                activeNode.left = datum.children[0].data.name;
+                activeNode.right = datum.children[1].data.name;
+            }
+            else {
+                activeNode.left = '';
+                activeNode.right = '';
+            }
+
+            handleActiveNodeChange(activeNode);
         })
         
     circleNodes // Styles active circle
