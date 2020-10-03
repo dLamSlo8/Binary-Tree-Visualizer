@@ -26,6 +26,7 @@ export default ({ activeNode, handleUpdateNode, handleDeleteNode, handleInit, bs
 
     const handleSubmitSuccess = () => {
         if (!initialized) {
+            // put firebase call here
             setInitialized(true);
             handleInit(formData.root);
         }

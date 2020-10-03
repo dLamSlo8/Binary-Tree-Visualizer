@@ -75,7 +75,7 @@ export const nodeToString = (node) => {
 }
 
 /**
- * Creates new node to replace node
+ * Returns root node after creating new node to replace node
  * @param node - root node of tree structure
  * @param value - value to replace node value with
  * @param left - value to replace node's left value with
@@ -232,7 +232,7 @@ export const postOrderTraversal = (node, l) => {
  * @param node - root node of the tree structure
  */
 export const levelOrderTraversal = (node) => {
-    if (node === "null") {
+    if (node === null) {
         return [];
     }
     var q = [];
@@ -252,6 +252,46 @@ export const levelOrderTraversal = (node) => {
 
     return JSON.stringify(ans);
 }
+
+/**
+ * Returns root node of tree after removing a subtree of specified node
+ * @param node - root node of the tree structure
+ * @param uuid - uuid of root node of subtree to delete
+ */
+export const deleteSubtree = (node, uuid) => {
+    var dummy = new Node(0);
+    dummy.right = node;
+
+    function helper(node, uuid) {
+        if (node === null) {
+            return null;
+        }
+    
+        var left = helper(node.left, uuid);
+        var right = helper(node.right, uuid);
+    
+        if (node.uuid === uuid) {
+            return node;
+        }
+    
+        // if left or right is not null, then its descendant is the required node
+        if (left !== null) {
+            node.left = null;
+            return null;
+        }
+    
+        if (right !== null) {
+            node.right = null;
+            return null;
+        }
+    
+        return null;
+    }
+
+    helper(dummy, uuid);
+    return dummy.right;
+}
+
 
 /**
  * Returns D3 representation of tree node.
