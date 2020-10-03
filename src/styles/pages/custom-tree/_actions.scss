@@ -13,6 +13,11 @@
         margin-bottom: 1rem;
     }
 
+    &__update-form {
+        display: flex;
+        flex-direction: column;
+    }
+
     &__init-input {
         width: 33%;
         margin-bottom: 1rem;

@@ -20,6 +20,21 @@
         @include mq('sm') {
             margin-top: 2rem;
         }    
+
+        &-sm {
+            margin-top: 1rem;
+        }
+    }
+
+    &--space-b {
+        margin-bottom: 1rem;
+        @include mq('sm') {
+            margin-bottom: 2rem;
+        }
+
+        &-sm {
+            margin-bottom: 1rem;
+        }
     }
 
     &:hover {

@@ -1,30 +1,38 @@
 import React, { useState, useMemo } from 'react';
 import useForm, { ValidationTypes } from '../../../hooks/useForm';
 
-export default ({ values, handleUpdate, handleDelete, handleInit, bsString }) => {
+export default ({ activeNode, handleUpdateNode, handleDeleteNode, handleInit, bsString }) => {
     const [initialized, setInitialized] = useState(false);
     const initFormData = useMemo(() => {
-        if (values) {
-            return {...values};
+        if (activeNode) {
+            console.log(activeNode);
+            let { current, left, right } = activeNode;
+
+            return { 
+                current, left, right
+            };
         }
-
-
         else {
-            return { root: 0 };
+            return { root: '' };
         } 
-    }, [values]);
+    }, [activeNode]);
 
-    const { formData, handleChange, handleSubmit } = useForm({
+    const { formData, errorMapping, handleChange, handleSubmit } = useForm({
         initValues: initFormData,
-        validationRules: {
+        validationRules: !initialized ? { // No validate if already initialized
             root: [ValidationTypes.required]
-        }
+        } : {}
     });
 
     const handleSubmitSuccess = () => {
-        setInitialized(true);
-        handleInit(formData.root);
-    }
+        if (!initialized) {
+            setInitialized(true);
+            handleInit(formData.root);
+        }
+        else {
+            handleUpdateNode(formData);
+        }
+    };
 
     return (
         <section className="ct-actions">
@@ -43,10 +51,46 @@ export default ({ values, handleUpdate, handleDelete, handleInit, bsString }) =>
                         type="number"
                         value={formData.root}
                         onChange={handleChange} />
+                        { // Should basically never happen unless there's some exploit b/c submit is disabled until root value has an actual value
+                            errorMapping.root && (
+                                <p className="error error--input">{errorMapping.root}</p>
+                            )
+                        }
                         <button className={`button ${formData.root === '' ? 'button--disabled' : ''}`} disabled={formData.root === ''}>Initialize tree</button>
                     </>
                 )
-                : null
+                : 
+                (
+                    formData.left !== undefined && 
+                    <>
+                        <label className="label label--space-b label--lg" htmlFor="current">Current Value</label>
+                        <input 
+                        id="current"
+                        className="input input--space-b" 
+                        name="current"
+                        type="number"
+                        value={formData.current}
+                        onChange={handleChange} />
+                        <label className="label label--space-b label--lg" htmlFor="left">Left Value</label>
+                        <input 
+                        id="left"
+                        className="input input--space-b" 
+                        name="left"
+                        type="number"
+                        value={formData.left}
+                        onChange={handleChange} />
+                        <label className="label label--space-b label--lg" htmlFor="right">Right Value</label>
+                        <input 
+                        id="right"
+                        className="input input--space-b" 
+                        name="right"
+                        type="number"
+                        value={formData.right}
+                        onChange={handleChange} />
+                        <button className="button button--space-t-sm button--full">Update Node</button>
+                        <button className="button button--space-t-sm button--space-b-sm button--full button--inverse" type="button">Delete Node</button>
+                    </>
+                )
             }
             </form>
 
