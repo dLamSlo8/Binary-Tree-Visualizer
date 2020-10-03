@@ -10,8 +10,6 @@ export default ({ rootNode, activeUuid, handleActiveNodeChange }) => {
         }
     }, []);
 
-
-
     return (
         <section className="ct-tree" ref={measuredRef}>
             <h3 className="heading ct__heading heading--reset">Your Tree</h3>

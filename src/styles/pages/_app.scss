@@ -2,10 +2,6 @@
     min-height: 100vh;
 }
 
-
-
-
-
 .app-tree {
     margin-top: 2rem;
     display: flex;
@@ -47,6 +43,10 @@
         }
     }
 
+    &__textarea {
+        resize: none;
+    }
+    
     &__label {
         font-weight: bold;
         font-size: 1rem;

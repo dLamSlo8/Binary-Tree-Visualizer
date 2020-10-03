@@ -9,8 +9,11 @@ export default ({ rootNode, sectionWidth, activeUuid, handleActiveNodeChange }) 
     }, [rootNode, sectionWidth, activeUuid]);
 
     return (
-        <div id="tree" className="ct-tree__tree">
+        <section className="ct-tree__tree-wrapper">
+            <div id="tree" className="ct-tree__tree">
 
-        </div>
+            </div>
+        </section>
+
     )
 }

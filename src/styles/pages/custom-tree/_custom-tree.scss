@@ -13,9 +13,12 @@
         }
     }
 
+
+    
     &__tree {
         margin-top: 2rem;
     }
+
 
     &__active-node > circle {
         fill: var(--color-primary);
