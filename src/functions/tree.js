@@ -238,7 +238,6 @@ export const nodeToD3 = (node) => {
  * @param node - root node of the tree structure
  * @param optimalWidth - width of frame (will be compared vs document width for mobile responsiveness)
  */
-
  export const generateD3Tree = (rootNode, optimalWidth) => {
     d3.select('#tree-svg').remove(); // Remove previous tree if any. 
     const data = nodeToD3(rootNode);
@@ -332,7 +331,6 @@ export const nodeToD3 = (node) => {
  * @param activeUuid - Uuid of active node. Will be styled accordingly
  * @param handleActiveNodeChange - Callback function for when the active node changes (circle selected).
  */
-
 export const generateCustomizableD3Tree = (node, optimalWidth, activeUuid, handleActiveNodeChange) => {
     const { nodes, links } = generateD3Tree(node, optimalWidth); // Generates initial tree
 

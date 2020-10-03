@@ -16,15 +16,15 @@ export default () => {
     const handleVisualize = (e) => { // 
         e.preventDefault();
 
-        let ref = db.collection("Uses").doc("5WPHzCgbQL7TKudM6Hdy");
-
         if (process.env.NODE_ENV === "development") {
+            let ref = db.collection("Uses").doc("Development");
             ref.update({
-                development: firebase.firestore.FieldValue.increment(1)
+                TreeVisualizer: firebase.firestore.FieldValue.increment(1)
             })
         }
 
         if (process.env.NODE_ENV === "production") {
+            let ref = db.collection("Uses").doc("5WPHzCgbQL7TKudM6Hdy");
             ref.update({
                 production: firebase.firestore.FieldValue.increment(1)
             })
