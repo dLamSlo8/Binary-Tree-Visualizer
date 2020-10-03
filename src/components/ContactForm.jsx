@@ -138,7 +138,7 @@ export default () => {
             }
             {
                 !formState.submitted && (
-                    <button className="app-submit">Send Email</button>
+                    <button className="button button--space-t">Send Email</button>
                 )
             }
         </form>

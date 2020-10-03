@@ -1,0 +1,28 @@
+.ct {
+    display: flex;
+    justify-content: center;
+
+    &__heading {
+        display: inline-block;
+        margin-top: 0;
+        padding-bottom: 0.25rem;
+        border-bottom: 4px solid var(--color-primary-medium-light); 
+        text-align: center;
+        @include mq('sm') {
+            text-align: left;
+        }
+    }
+
+    &__tree {
+        margin-top: 2rem;
+    }
+
+    &__active-node > circle {
+        fill: var(--color-primary);
+        stroke: none;
+    }
+
+    &__active-node > text {
+        fill: var(--color-secondary);
+    }
+}

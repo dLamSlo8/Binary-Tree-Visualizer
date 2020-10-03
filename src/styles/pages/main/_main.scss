@@ -1,0 +1,44 @@
+.main {
+    margin: 0 2rem;
+    
+    &__options {
+        display: flex;
+        justify-content: center;
+        max-width: 1000px;
+        margin: 0 auto 2rem auto;
+    }
+
+    &__option {
+        width: 100%;
+        padding: 1.5rem;
+        background-color: var(--color-primary-light);
+        border: 2px solid var(--color-primary);
+        border-radius: 0.5rem;
+        text-align: center;
+        color: black;
+        transition: background-color 200ms ease-in-out,
+                    color 200ms ease-in-out,
+                    box-shadow 200ms ease-in-out;
+
+        &--active, &:hover {
+            background-color: var(--color-primary);
+            color: white;
+            box-shadow: 0px 0px 6px 5px rgba(0, 98, 255, 0.25);
+        }
+
+        &:first-child {
+            margin-right: 2rem;
+        }
+
+        &-description {
+            font-family: var(--font-secondary);
+            font-weight: 600; // Semibold
+            font-style: italic;
+            margin: 0.5rem 0;
+        }
+
+        &-heading {
+            margin-top: 0;
+        }
+    }
+}

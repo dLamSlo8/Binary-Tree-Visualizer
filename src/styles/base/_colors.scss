@@ -1,9 +1,14 @@
 :root {
     --color-primary: #0062FF;
-    --color-primary-light: rgba(0, 98, 255, 0.5);
-    --color-primary-dark: #005BED;
+    --color-primary-light: #DBE9FF;
+    --color-primary-medium-light: #92BCFF;
+    --color-primary-dark: #0054DB;
     --color-primary-opaque: rgba(0, 98, 255, 0.05);
     --color-secondary: #FFFFFF;
     --color-error: #FF5A5F;
     --color-gray: #AAAAAA;
+    --color-mid-gray: #CCCCCC;
+    --color-light-gray: #EEEEEE;
+    --active-box-shadow: 0px 0px 6px 5px rgba(0, 98, 255, 0.25);
+    --active-drop-shadow: 0px 0px 5px rgba(0, 98, 255, 0.25);
 }

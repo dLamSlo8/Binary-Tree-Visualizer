@@ -1,0 +1,46 @@
+.button {
+    padding: 0.75rem 1.5rem;
+    font-family: var(--font-secondary);
+    font-weight: bold;
+    font-size: 1rem;
+    @include mq('sm') {
+        font-size: 1.25rem;
+    }
+    border: none;
+    background-color: var(--color-primary);
+    color: var(--color-secondary);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 200ms ease-in-out,
+                color 200ms ease-in-out,
+                box-shadow 200ms ease-in-out;
+
+    &--space-t {
+        margin-top: 1rem;
+        @include mq('sm') {
+            margin-top: 2rem;
+        }    
+    }
+
+    &:hover {
+        background-color: var(--color-primary-dark);
+        box-shadow: 0px 0px 6px 5px rgba(0, 98, 255, 0.25);
+    }
+
+    &--inverse {
+        color: var(--color-primary);
+        background-color: var(--color-secondary);
+        border: 2px solid var(--color-primary);
+
+        &:hover {
+            color: var(--color-secondary);
+            background-color: var(--color-primary);
+        }
+    }
+
+    &--full {
+        width: 100%;
+    }
+
+
+}
