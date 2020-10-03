@@ -63,7 +63,7 @@ export const nodeToString = (node) => {
         return ("null");
     }
 
-    var s = "[";
+    let s = "[";
     s += node.value + ", ";
 
     s += nodeToString(node.left) + ", ";
@@ -78,15 +78,20 @@ export const nodeToString = (node) => {
  * Creates new node to replace node
  * @param node - root node of tree structure
  * @param value - value to replace node value with
+ * @param left - value to replace node's left value with
+ * @param right - value to replace node's right value with
  * @param uuid - uuid of node we want to update value for
  */
 export const replaceNodeValue = (node, value, left, right, uuid) => {
     if (node === null) {
         return;
     }
-
+    console.log(node);
+    console.log(uuid);
     // Create new node to replace left
     if (node.left !== null && node.left.uuid === uuid) {
+        console.log("found it left");
+        console.log(uuid);
         let nextNode = new Node(value, uuid);
         let prevNode = node.left;
         // Update left and right values
@@ -133,8 +138,8 @@ export const replaceNodeValue = (node, value, left, right, uuid) => {
         return node.right;
     }
 
-    replaceNodeValue(node.left, value, uuid);
-    replaceNodeValue(node.right, value, uuid);
+    replaceNodeValue(node.left, value, left, right, uuid);
+    replaceNodeValue(node.right, value, left, right, uuid);
 
     return node.right;
 }

@@ -1,7 +1,7 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import ActionSection from './components/ActionSection';
 import TreeSection from './components/TreeSection';
-import { Node, replaceNodeValue } from '../../functions/tree';
+import { Node, replaceNodeValue, nodeToString } from '../../functions/tree';
 
 /**
  * -- State --
@@ -35,10 +35,12 @@ export default () => {
 
     const handleUpdateNode = useCallback(({ current, left, right }) => {
         console.table({ current, left, right });
+        console.log(activeNode);
         let rootCopy = new Node(0, 0, rootNode);
         let dummyNode = new Node(0);
         dummyNode.right = rootCopy;
-        const newNode = replaceNodeValue(dummyNode, current, left, right, activeNode.uuid);
+        console.log(dummyNode);
+        const newNode = replaceNodeValue(dummyNode, parseInt(current), parseInt(left), parseInt(right), activeNode.uuid);
         console.log(newNode);
         setRootNode(newNode);
     }, [rootNode, activeNode]);
@@ -46,6 +48,12 @@ export default () => {
     const handleDeleteNode = useCallback(() => {
 
     }, []);
+
+    useEffect(() => { // useEffect to update bsString on update to tree
+        if (rootNode) {
+            setBsString(nodeToString(rootNode));
+        }
+    }, [rootNode]);
 
     return (
         <section className="ct">
