@@ -28,7 +28,7 @@ export const parseTree = (s) => {
     }
 
     if (s.length !== 3) {
-        throw "A binary tree must have 2 children per node."
+        throw ("A binary tree must have 2 children per node.")
     }
 
     var node = new Node(s[0])
@@ -75,83 +75,29 @@ export const nodeToString = (node) => {
 }
 
 /**
- * Returns root node after creating new node to replace node
+ * Returns root node after updating node value
  * @param node - root node of tree structure
  * @param value - value to replace node value with
- * @param left - value to replace node's left value with
- * @param right - value to replace node's right value with
  * @param uuid - uuid of node we want to update value for
  */
-export const replaceNodeValue = (node, value, left, right, uuid) => {
-    function helper(node, value, left, right, uuid) {
+export const replaceNodeValue = (node, value, uuid) => {
+    function helper(node, value, uuid) {
         if (node === null) {
             return;
         }
-        console.log(node);
-        console.log(uuid);
-        // Create new node to replace left
-        if (node.left !== null && node.left.uuid === uuid) {
-            console.log("found it left");
-            console.log(uuid);
-            let nextNode = new Node(value, uuid);
-            let prevNode = node.left;
-            // Update left and right values
-            if (prevNode.left) {
-                prevNode.left.value = left;
-            }
-            else {
-                prevNode.left = new Node(left);
-            }
-            if (prevNode.right) {
-                prevNode.right.value = right;
-            }
-            else {
-                prevNode.right = new Node(right);
-            }
-    
-            node.left = nextNode;
-            nextNode.left = prevNode === null ? null : prevNode.left;
-            nextNode.right = prevNode === null ? null : prevNode.right;
-            return node.left;
+        if (node.uuid === uuid) {
+            node.value = value;
         }
     
-        // Create new node to replace right
-        if (node.right !== null && node.right.uuid === uuid) {
-            let nextNode = new Node(value, uuid);
-            let prevNode = node.right;
-            // Update left and right values
-            if (prevNode.left) {
-                prevNode.left.value = left;
-            }
-            else {
-                prevNode.left = new Node(left);
-            }
-            if (prevNode.right) {
-                prevNode.right.value = right;
-            }
-            else {
-                prevNode.right = new Node(right);
-            }
+        helper(node.left, value, uuid);
+        helper(node.right, value, uuid);
     
-            node.right = nextNode;
-            nextNode.left = prevNode === null ? null : prevNode.left;
-            nextNode.right = prevNode === null ? null : prevNode.right;
-            return node.right;
-        }
-    
-        helper(node.left, value, left, right, uuid);
-        helper(node.right, value, left, right, uuid);
-    
-        return node.right;
+        return node;
     }
 
-    // make dummy node
-    var dummy = new Node(0);
-
     // make new copy of tree
-    var rootCopy = new Node(0, 0, rootNode);
-    dummy.right = rootCopy;
-    return helper(dummy, value, left, right, uuid);
+    var rootCopy = new Node(0, 0, node);
+    return helper(rootCopy, value, uuid);
 }
 
 /**
@@ -300,6 +246,43 @@ export const deleteSubtree = (node, uuid) => {
     return dummy.right;
 }
 
+/**
+ * Returns root node after adding a new node to tree structure
+ * @param node - root node of tree structure
+ * @param value - value new node should have
+ * @param isLeft - whether to add to left or right subtree
+ * @param matchUUID - uuid of node we want to add to
+ * @param createUUID - (optional) uuid of node created
+ */
+export const addNode = (node, value, isLeft, matchUUID, createUUID) => {
+    function helper(node, value, isLeft, matchUUID, createUUID) {
+        if (node === null) {
+            return;
+        }
+
+        if (node.uuid === matchUUID) {
+            if (isLeft) {
+                if (node.left !== null) {
+                    throw ("A left child for this node already exists.")
+                }
+                node.left = new Node(value, createUUID);
+            } else {
+                if (node.right !== null) {
+                    throw ("A right child for this node already exists.")
+                }
+                node.right = new Node(value, createUUID);
+            }
+            return node;
+        }
+
+        helper(node.left, value, isLeft, matchUUID, createUUID);
+        helper(node.right, value, isLeft, matchUUID, createUUID);
+        return node;
+    }
+
+    var rootCopy = new Node(0, 0, node);
+    return helper(rootCopy, value, isLeft, matchUUID, createUUID);
+}
 
 /**
  * Returns D3 representation of tree node.
