@@ -1,16 +1,24 @@
 .ct-actions {
-    flex-basis: 33%;
+    flex-basis: 45%;
     padding: 1rem;
     border: 2px solid var(--color-primary);
     border-radius: 0.5rem;
     margin-right: 2rem;
     height: fit-content;
+    min-width: 300px;
+    box-sizing: border-box;
+
+    &__helper-text {
+        font-family: var(--font-secondary);
+        font-weight: bold;
+        font-style: italic;
+    }    
     
     &__init-form {
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin-bottom: 1rem;
+        margin: 2rem 0 1rem;
     }
 
     &__update-form {
@@ -30,8 +38,12 @@
 
     &__bs-string {
         padding: 1rem;
+        margin: 1rem 0;
         font-family: var(--font-secondary);
         font-weight: 600;
         background-color: var(--color-light-gray);
+        overflow-x: auto;
+        white-space: nowrap;
     }
+    
 }

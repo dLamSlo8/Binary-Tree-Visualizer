@@ -42,6 +42,10 @@
         box-shadow: 0px 0px 6px 5px rgba(0, 98, 255, 0.25);
     }
 
+    &--warning {
+        background-color: var(--color-error);
+    }
+
     &--inverse {
         color: var(--color-primary);
         background-color: var(--color-secondary);
@@ -50,6 +54,17 @@
         &:hover {
             color: var(--color-secondary);
             background-color: var(--color-primary);
+        }
+
+        &.button--warning {
+            border-color: var(--color-error);
+            color: var(--color-error);
+
+            &:hover {
+                color: var(--color-secondary);
+                background-color: var(--color-error);
+                box-shadow: 0px 0px 6px 5px rgba(232, 0, 8, 0.25);
+            }
         }
     }
 

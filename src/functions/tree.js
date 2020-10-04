@@ -82,77 +82,90 @@ export const nodeToString = (node) => {
  * @param right - value to replace node's right value with
  * @param uuid - uuid of node we want to update value for
  */
-export const replaceNodeValue = (node, value, left, right, uuid) => {
-    function helper(node, value, left, right, uuid) {
-        if (node === null) {
-            return;
-        }
-        console.log(node);
-        console.log(uuid);
-        // Create new node to replace left
-        if (node.left !== null && node.left.uuid === uuid) {
-            console.log("found it left");
-            console.log(uuid);
-            let nextNode = new Node(value, uuid);
-            let prevNode = node.left;
-            // Update left and right values
-            if (prevNode.left) {
-                prevNode.left.value = left;
-            }
-            else {
-                prevNode.left = new Node(left);
-            }
-            if (prevNode.right) {
-                prevNode.right.value = right;
-            }
-            else {
-                prevNode.right = new Node(right);
-            }
-    
-            node.left = nextNode;
-            nextNode.left = prevNode === null ? null : prevNode.left;
-            nextNode.right = prevNode === null ? null : prevNode.right;
-            return node.left;
-        }
-    
-        // Create new node to replace right
-        if (node.right !== null && node.right.uuid === uuid) {
-            let nextNode = new Node(value, uuid);
-            let prevNode = node.right;
-            // Update left and right values
-            if (prevNode.left) {
-                prevNode.left.value = left;
-            }
-            else {
-                prevNode.left = new Node(left);
-            }
-            if (prevNode.right) {
-                prevNode.right.value = right;
-            }
-            else {
-                prevNode.right = new Node(right);
-            }
-    
-            node.right = nextNode;
-            nextNode.left = prevNode === null ? null : prevNode.left;
-            nextNode.right = prevNode === null ? null : prevNode.right;
-            return node.right;
-        }
-    
-        helper(node.left, value, left, right, uuid);
-        helper(node.right, value, left, right, uuid);
-    
-        return node.right;
-    }
+// export const replaceNodeValue = (node, value, left, right, uuid) => {
+//     if (node === null) {
+//         return;
+//     }
+//     console.log(node);
+//     console.log(uuid);
+//     // Create new node to replace left
+//     if (node.left !== null && node.left.uuid === uuid) {
+//         console.log("found it left");
+//         console.log(uuid);
+//         let nextNode = new Node(value, uuid);
+//         let prevNode = node.left;
+//         // Update left and right values
+//         if (prevNode.left) {
+//             if (isNaN(left)) {
+//                 prevNode.left = null;
+//             }
+//             else {
+//                 prevNode.left.value = left;
+//             }
+//         }
+//         else if (!isNaN(left)) {
+//             prevNode.left = new Node(left);
+//         }
+//         if (prevNode.right) {
+//             if (isNaN(right)) {
+//                 prevNode.right = null;
+//             }
+//             else {
+//                 prevNode.right.value = right;
+//             }
+//         }
+//         else if (!isNaN(right)) {
+//             prevNode.right = new Node(right);
+//         }
 
-    // make dummy node
-    var dummy = new Node(0);
+//         node.left = nextNode;
+//         nextNode.left = prevNode === null ? null : prevNode.left;
+//         nextNode.right = prevNode === null ? null : prevNode.right;
+//         return node.left;
+//     }
 
-    // make new copy of tree
-    var rootCopy = new Node(0, 0, rootNode);
-    dummy.right = rootCopy;
-    return helper(dummy, value, left, right, uuid);
-}
+//     // Create new node to replace right
+//     if (node.right !== null && node.right.uuid === uuid) {
+//         let nextNode = new Node(value, uuid);
+//         let prevNode = node.right;
+//         // Update left and right values
+//         if (prevNode.left) {
+//             if (isNaN(left)) {
+//                 prevNode.left = null;
+//             }
+//             else {
+//                 prevNode.left.value = left;
+//             }
+//         }
+//         else if (!isNaN(left)) {
+//             prevNode.left = new Node(left);
+//         }
+//         if (prevNode.right) {
+//             if (isNaN(right)) {
+//                 prevNode.right = null;
+//             }
+//             else {
+//                 prevNode.right.value = right;
+//             }
+//         }
+//         else if (!isNaN(right)) {
+//             prevNode.right = new Node(right);
+//         }
+    
+//         helper(node.left, value, left, right, uuid);
+//         helper(node.right, value, left, right, uuid);
+    
+//         return node.right;
+//     }
+
+//     // make dummy node
+//     var dummy = new Node(0);
+
+//     // make new copy of tree
+//     var rootCopy = new Node(0, 0, rootNode);
+//     dummy.right = rootCopy;
+//     return helper(dummy, value, left, right, uuid);
+// }
 
 /**
  * Updates the id of all nodes in subtree

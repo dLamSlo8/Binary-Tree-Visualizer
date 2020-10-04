@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import ActionSection from './components/ActionSection';
 import TreeSection from './components/TreeSection';
-import { Node, replaceNodeValue, nodeToString } from '../../functions/tree';
+import { Node, nodeToString } from '../../functions/tree';
 
 /**
  * -- State --
@@ -40,9 +40,9 @@ export default () => {
         let dummyNode = new Node(0);
         dummyNode.right = rootCopy;
         console.log(dummyNode);
-        const newNode = replaceNodeValue(dummyNode, parseInt(current), parseInt(left), parseInt(right), activeNode.uuid);
-        console.log(newNode);
-        setRootNode(newNode);
+        // const newNode = replaceNodeValue(dummyNode, parseInt(current), parseInt(left), parseInt(right), activeNode.uuid);
+        // console.log(newNode);
+        // setRootNode(newNode);
     }, [rootNode, activeNode]);
 
     const handleDeleteNode = useCallback(() => {

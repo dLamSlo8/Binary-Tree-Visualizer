@@ -26,7 +26,6 @@ export default ({ activeNode, handleUpdateNode, handleDeleteNode, handleInit, bs
 
     const handleSubmitSuccess = () => {
         if (!initialized) {
-            // put firebase call here
             setInitialized(true);
             handleInit(formData.root);
         }
@@ -35,9 +34,19 @@ export default ({ activeNode, handleUpdateNode, handleDeleteNode, handleInit, bs
         }
     };
 
+    const handleCopyClipboard = (e) => {
+        /* write to the clipboard now */
+        navigator.clipboard.writeText(bsString);
+    }
+
     return (
         <section className="ct-actions">
-            <h3 className="heading ct__heading">Actions</h3>
+            <h3 className="heading heading--reset ct__heading">Actions</h3>
+            {
+                initialized && (
+                    <p className="ct-actions__helper-text">NOTE: Clearing any value (i.e. setting any value to empty) will collapse that part of the tree if it already exists.</p>
+                )
+            }
             <form className={initialized ? 'ct-actions__update-form' : 'ct-actions__init-form'} onSubmit={(e) => handleSubmit(e, handleSubmitSuccess)}>
             {
                 !initialized 
@@ -89,16 +98,16 @@ export default ({ activeNode, handleUpdateNode, handleDeleteNode, handleInit, bs
                         value={formData.right}
                         onChange={handleChange} />
                         <button className="button button--space-t-sm button--full">Update Node</button>
-                        <button className="button button--space-t-sm button--space-b-sm button--full button--inverse" type="button">Delete Node</button>
+                        <button className="button button--space-t-sm button--space-b-sm button--full button--inverse button--warning" type="button">Delete Node</button>
                     </>
                 )
             }
             </form>
 
             <section className="ct-actions__bs">
-                <h4 className="heading heading--center heading--reset">Binarysearch Representation</h4>
+                <h4 className="heading heading--center heading--reset heading--sm">Binarysearch Representation</h4>
                 <p className="ct-actions__bs-string">{bsString ? bsString : 'N/A'}</p>
-                <button className={`button button--full ${!bsString ? 'button--disabled' : ''}`} type="button" disabled={!bsString}>Copy to clipboard</button>
+                <button className={`button button--full ${!bsString ? 'button--disabled' : ''}`} type="button" disabled={!bsString} onClick={handleCopyClipboard}>Copy to clipboard</button>
             </section>
         </section>
     )
