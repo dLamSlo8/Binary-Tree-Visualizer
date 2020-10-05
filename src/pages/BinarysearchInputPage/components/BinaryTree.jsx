@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { nodeToD3, generateD3Tree } from '../../../functions/tree';
-import * as d3 from 'd3';
 
 export default ({ rootNode }) => {
     useEffect(() => {

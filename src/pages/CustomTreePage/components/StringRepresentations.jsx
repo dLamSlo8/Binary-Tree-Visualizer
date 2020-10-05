@@ -2,8 +2,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { nodeToString, preOrderTraversal, inOrderTraversal, postOrderTraversal, levelOrderTraversal } from '../../../functions/tree';
 import Dropdown from '../../../components/Dropdown';
 
-export default React.memo(({ rootNode }) => {
-    const [selectedType, setSelectedType] = useState('Binarysearch Representation');
+export default React.memo(({ rootNode, selectedType, setSelectedType }) => {
     const [stringRepr, setStringRepr] = useState('');
     
     const handleTypeChange = useCallback((e) => {

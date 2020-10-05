@@ -1,8 +1,16 @@
 .main {
-    margin: 0 2rem;
+    margin: 0 0.5rem;
+    @include mq('sm') {
+        margin: 0 2rem;
+    }
     
     &__options {
         display: flex;
+        flex-direction: column;
+        @include mq('sm') {
+            flex-direction: row;
+        }
+        
         justify-content: center;
         max-width: 1000px;
         margin: 0 auto 2rem auto;
@@ -27,7 +35,10 @@
         }
 
         &:first-child {
-            margin-right: 2rem;
+            margin: 0 0 2rem 0;
+            @include mq('sm') {
+                margin: 0 2rem 0 0;
+            }
         }
 
         &-description {

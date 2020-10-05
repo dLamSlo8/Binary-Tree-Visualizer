@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import ActionSection from './components/ActionSection';
 import TreeSection from './components/TreeSection';
 import { addNode, deleteSubtree, Node, nodeToString, replaceNodeValue } from '../../functions/tree';
@@ -12,10 +12,7 @@ import { addNode, deleteSubtree, Node, nodeToString, replaceNodeValue } from '..
  *              }
  * @bsString - 
  */
-export default () => {
-    const [rootNode, setRootNode] = useState(null);
-    const [activeNode, setActiveNode] = useState(null);
-    const [bsString, setBsString] = useState(null);
+export default ({ rootNode, setRootNode, activeNode, setActiveNode, selectedType, setSelectedType }) => {
 
     const handleInit = (value) => {
         let rootNode = new Node(parseInt(value));
@@ -50,11 +47,6 @@ export default () => {
         setActiveNode((activeNode) => ({ ...activeNode, ...(isLeft ? { left: childValue } : { right: childValue })}));
     }, [rootNode, activeNode]);
 
-    useEffect(() => { // useEffect to update bsString on update to tree
-        if (rootNode) {
-            setBsString(nodeToString(rootNode));
-        }
-    }, [rootNode]);
 
     return (
         <section className="ct">
@@ -66,7 +58,8 @@ export default () => {
             handleUpdateNode={handleUpdateNode} 
             handleDeleteNode={handleDeleteNode} 
             handleAddChildren={handleAddChildren}
-            bsString={bsString}  />
+            selectedType={selectedType}
+            setSelectedType={setSelectedType} />
             <TreeSection rootNode={rootNode} activeUuid={activeNode ? activeNode.uuid : null} handleActiveNodeChange={handleActiveNodeChange} />
         </section>
     );

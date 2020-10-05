@@ -6,7 +6,7 @@ import db from "../../../database.js";
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 
-export default ({ initialized, activeNode, rootNode, handleInit, handleUpdateNode, handleAddChildren, handleDeleteNode, }) => {
+export default ({ initialized, activeNode, rootNode, handleInit, handleUpdateNode, handleAddChildren, handleDeleteNode, selectedType, setSelectedType }) => {
 
     const { formData, setFormData, errorMapping, handleChange, handleSubmit } = useForm({
         initValues: {
@@ -76,7 +76,7 @@ export default ({ initialized, activeNode, rootNode, handleInit, handleUpdateNod
                     )
                 )
             }
-            <StringRepresentations rootNode={rootNode} />
+            <StringRepresentations rootNode={rootNode} selectedType={selectedType} setSelectedType={setSelectedType} />
         </section>
     )
 }

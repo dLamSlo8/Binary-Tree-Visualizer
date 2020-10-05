@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Switch, Route, Link, useLocation } from 'react-router-dom';
+import { Switch, Route, Link, useLocation } from 'react-router-dom';
 import BinarysearchInputPage from '../BinarysearchInputPage/BinarysearchInputPage';
 import CustomTreePage from '../CustomTreePage/CustomTreePage';
 
 export default () => {
     const location = useLocation();
     const [usageMode, setUsageMode] = useState(location.pathname.slice(1));
-    
+    const [customTreeRootNode, setCustomTreeRootNode] = useState(null);
+    const [customTreeActiveNode, setCustomTreeActiveNode] = useState(null);
+    const [customTreeSelectedType, setCustomTreeSelectedType] = useState('Binarysearch Representation');
+
+    const [binarysearchString, setBinarysearchString] = useState('[1, [2, [4, null, null], null], [3, null, [5, null, null]]]');
+
     return (
         <main className="main">
             {
@@ -52,10 +57,21 @@ export default () => {
                     </table>
                 )
             }
-            <Switch>
-                <Route path="/binarysearch-input" component={BinarysearchInputPage} />
-                <Route path="/custom-tree" component={CustomTreePage} />
-            </Switch>
+                <Switch>
+                    <Route path="/binarysearch-input">
+                        <BinarysearchInputPage treeString={binarysearchString} setTreeString={setBinarysearchString} />
+                    </Route>
+                    <Route path="/custom-tree">
+                        <CustomTreePage 
+                        rootNode={customTreeRootNode}
+                        setRootNode={setCustomTreeRootNode}
+                        activeNode={customTreeActiveNode}
+                        setActiveNode={setCustomTreeActiveNode}
+                        selectedType={customTreeSelectedType}
+                        setSelectedType={setCustomTreeSelectedType} />
+                    </Route>
+                </Switch>
+
         </main>
     )
 };

@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { parseTree } from '../../functions/tree';
 import BinaryTree from './components/BinaryTree';
 import db from "../../database.js";
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 
-export default () => {
+export default ({ treeString, setTreeString }) => {
 
-    const [treeString, setTreeString] = useState('[1, [2, [4, null, null], null], [3, null, [5, null, null]]]');
     const [rootNode, setRootNode] = useState(null);
     const [parseErr, setParseErr] = useState('');
     const [inputErr, setInputErr] = useState(false);

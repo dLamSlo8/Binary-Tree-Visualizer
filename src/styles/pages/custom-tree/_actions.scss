@@ -1,9 +1,17 @@
 .ct-actions {
-    flex-basis: 45%;
+    flex-basis: 100%;
+    @include mq('md-lg') {
+        flex-basis: 45%;
+    }
     padding: 1rem;
     border: 2px solid var(--color-primary);
     border-radius: 0.5rem;
-    margin-right: 2rem;
+    margin: 2rem 0 0 0;
+
+    @include mq('md-lg') {
+        margin: 0 2rem 0 0;
+    }
+    
     height: fit-content;
     min-width: 300px;
     box-sizing: border-box;
