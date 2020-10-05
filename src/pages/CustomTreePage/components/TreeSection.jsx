@@ -13,7 +13,7 @@ let TreeSection = ({ rootNode, activeUuid, handleActiveNodeChange }) => {
 
     return (
         <section className="ct-tree" ref={measuredRef}>
-            <h3 className="heading heading--lg ct__heading heading--reset">Your Tree</h3>
+            <h3 className="heading heading--lg ct__heading heading--reset ct-tree__heading">Your Tree</h3>
             <p className="ct__helper-text">
                 Select a node to edit its current value and add children if they don't already exist on the “Actions” tab. 
                 The selected node is highlighted blue. 
