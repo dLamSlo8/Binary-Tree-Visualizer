@@ -58,30 +58,6 @@ export default () => {
 
     return (
         <section className="bs">
-            <table className="bs__controls">
-                <thead>
-                    <tr>
-                        <th className="heading heading--lg bs__control-header" colSpan="3">Controls</th>
-                    </tr>
-                    <tr>
-                        <th className="bs__control-cell"></th>
-                        <th className="bs__control-cell">Desktop</th>
-                        <th className="bs__control-cell">Mobile</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td className="bs__control-cell"><strong>Pan</strong></td>
-                        <td className="bs__control-cell">Shift + Click</td>
-                        <td className="bs__control-cell">Drag</td>
-                    </tr>
-                    <tr>
-                        <td className="bs__control-cell"><strong>Zoom</strong></td>
-                        <td className="bs__control-cell">Shift + Scroll</td>
-                        <td className="bs__control-cell">Pinch/Spread</td>
-                    </tr>
-                </tbody>
-            </table>
             <form className="bs__form" onSubmit={(e) => handleVisualize(e)}>
                 <div className="bs__input-wrapper">
                     <input 

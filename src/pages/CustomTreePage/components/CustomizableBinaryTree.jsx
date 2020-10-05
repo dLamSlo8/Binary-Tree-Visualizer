@@ -9,11 +9,12 @@ export default ({ rootNode, sectionWidth, activeUuid, handleActiveNodeChange }) 
     }, [rootNode, sectionWidth, activeUuid]);
 
     return (
+        rootNode ? 
         <section className="ct-tree__tree-wrapper">
             <div id="tree" className="ct-tree__tree">
 
             </div>
         </section>
-
+        : null
     )
 }

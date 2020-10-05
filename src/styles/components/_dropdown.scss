@@ -1,0 +1,13 @@
+.dropdown {
+    padding: 0.5rem 0;
+    font-family: var(--font-primary);
+    font-size: 0.9rem;
+
+    &--full {
+        width: 100%;
+    }
+
+    &--space-t {
+        margin-top: 1rem;
+    }
+}

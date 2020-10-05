@@ -1,20 +1,21 @@
 import React, { useState, useCallback } from 'react';
 import CustomizableBinaryTree from './CustomizableBinaryTree';
 
-export default ({ rootNode, activeUuid, handleActiveNodeChange }) => {
+let TreeSection = ({ rootNode, activeUuid, handleActiveNodeChange }) => {
+    console.log('rerender this');
     const [sectionWidth, setSectionWidth] = useState(0);
 
     const measuredRef = useCallback((node) => {
         if (node!== null) {
             setSectionWidth(node.clientWidth);
         }
-    }, []);
+    }, [rootNode]);
 
     return (
         <section className="ct-tree" ref={measuredRef}>
-            <h3 className="heading ct__heading heading--reset">Your Tree</h3>
-            <p className="ct-tree__helper-text">
-                Select a node to edit its current, left, and right values on the “Actions” tab. 
+            <h3 className="heading heading--lg ct__heading heading--reset">Your Tree</h3>
+            <p className="ct__helper-text">
+                Select a node to edit its current value and add children if they don't already exist on the “Actions” tab. 
                 The selected node is highlighted blue. 
             </p>
             <CustomizableBinaryTree 
@@ -25,3 +26,5 @@ export default ({ rootNode, activeUuid, handleActiveNodeChange }) => {
         </section>
     )
 }
+
+export default React.memo(TreeSection);

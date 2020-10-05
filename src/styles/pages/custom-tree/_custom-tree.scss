@@ -28,4 +28,14 @@
     &__active-node > text {
         fill: var(--color-secondary);
     }
+
+    &__helper-text {
+        font-family: var(--font-secondary);
+        font-weight: bold;
+        font-style: italic;
+
+        &--no-space-t {
+            margin-top: 0;
+        }
+    }   
 }

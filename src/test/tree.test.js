@@ -1,7 +1,7 @@
-import {nodeToString, parseTree, replaceNodeValue, updateId, inOrderTraversal, preOrderTraversal, postOrderTraversal, levelOrderTraversal, deleteSubtree} from "../functions/tree.js";
+import {nodeToString, parseTree, replaceNodeValue, updateId, inOrderTraversal, preOrderTraversal, postOrderTraversal, levelOrderTraversal, deleteSubtree, addNode} from "../functions/tree.js";
 import {Node} from "../functions/tree.js"
 
-describe("Test parseTree method", () => {
+describe("Test parseTree function", () => {
     it ("Should throw an error for non binary tree", () => {
         var input = JSON.parse("[1, [2, 3, 4], null]");
         expect(() => parseTree(input)).toThrow("A binary tree must have 2 children per node.");
@@ -59,7 +59,7 @@ describe("Test parseTree method", () => {
 })
 
 
-describe ("Test nodeToString method", () => {
+describe ("Test nodeToString function", () => {
     it ("Should give string when correct input", () => {
         var input = new Node(1);
         input.left = new Node(5);
@@ -96,40 +96,33 @@ describe ("Test nodeToString method", () => {
     })
 })
 
-describe("Test replace node value", () => {
+describe("Test replaceNodeValue function", () => {
     it ("Should create new node to replace existing node", () => {
         var input = new Node(1, 123);
 
         var expected = new Node(5, 123);
-
-        var result = replaceNodeValue(input, 5, NaN, NaN, 123);
-        
+        var result = replaceNodeValue(input, 5, 123);
         expect(result).toMatchObject(expected);
 
-        var input = new Node(0, 0);
-        var root = new Node(1, 123);
-        input.right = root;
-        root.right = new Node(4, 111);
-        root.right.left = new Node(6, 964);
-        root.right.right = new Node(7, 432);
+        var input = new Node(5, 123);
+        input.right = new Node(4, 111);
+        input.right.left = new Node(6, 964);
+        input.right.right = new Node(7, 432);
 
         var expected = new Node(5, 123);
-        expected.right = new Node(4, 111);
+        expected.right = new Node(-1, 111);
         expected.right.left = new Node(6, 964);
         expected.right.right = new Node(7, 432);
 
-        var result = replaceNodeValue(input, 5, 123);
-        
+        var result = replaceNodeValue(input, -1, 111);
         expect(result).toMatchObject(expected);
 
-        var input = new Node(0, 0);
-        var root = new Node(-1, 123);
-        input.right = root;
-        root.left = new Node(-2, 111);
-        root.left.left = new Node(2, 964);
-        root.right = new Node(0, 432);
-        root.right.right = new Node(-3, 231);
-        root.right.right.right = new Node(-3, 777);
+        var input = new Node(-1, 123);
+        input.left = new Node(-2, 111);
+        input.left.left = new Node(2, 964);
+        input.right = new Node(0, 432);
+        input.right.right = new Node(-3, 231);
+        input.right.right.right = new Node(-3, 777);
 
         var expected = new Node(-1, 123);
         expected.left = new Node(-2, 111);
@@ -139,17 +132,14 @@ describe("Test replace node value", () => {
         expected.right.right.right = new Node(-2, 777);
 
         var result = replaceNodeValue(input, -2, 777);
-
         expect(result).toMatchObject(expected);
 
-        var input = new Node(0, 0);
-        var root = new Node(-1, 123);
-        input.right = root;
-        root.left = new Node(-2, 111);
-        root.left.left = new Node(2, 964);
-        root.right = new Node(0, 432);
-        root.right.right = new Node(-3, 231);
-        root.right.right.right = new Node(-3, 777);
+        var input = new Node(-1, 123);
+        input.left = new Node(-2, 111);
+        input.left.left = new Node(2, 964);
+        input.right = new Node(0, 432);
+        input.right.right = new Node(-3, 231);
+        input.right.right.right = new Node(-3, 777);
 
         var expected = new Node(-1, 123);
         expected.left = new Node(-2, 111);
@@ -159,7 +149,6 @@ describe("Test replace node value", () => {
         expected.right.right.right = new Node(-3, 777);
 
         var result = replaceNodeValue(input, 0, 964);
-
         expect(result).toMatchObject(expected);
 
     })
@@ -267,7 +256,7 @@ describe ("Test level order traversal", () => {
 })
 
 
-describe ("Test deleteSubtree method", () => {
+describe ("Test deleteSubtree function", () => {
     it ("Should return empty tree when deleting root", () =>{
         var input = new Node(1, 123);
 
@@ -332,6 +321,50 @@ describe ("Test deleteSubtree method", () => {
         expected.right.left = new Node(6, 116);
 
         var result = deleteSubtree(input, 117);
+        expect(result).toMatchObject(expected);
+    })
+})
+
+describe ("Test addNode function", () => {
+    it ("Should throw error when child already exists", () => {
+        var input = new Node(1, 111);
+        input.left = new Node(4, 100);
+
+        expect(() => addNode(input, 7, true, 111)).toThrow("A left child for this node already exists.");
+
+        var input = new Node(1, 111);
+        input.right = new Node(4, 100);
+
+        expect(() => addNode(input, 7, false, 111)).toThrow("A right child for this node already exists.");
+    })
+
+    it ("Should add new node to tree structure", () => {
+        var input = new Node(1, 111);
+
+        var expected = new Node(1, 111);
+        expected.left = new Node(-1, 26);
+
+        var result = addNode(input, -1, true, 111, 26);
+        expect(result).toMatchObject(expected);
+
+        var input = new Node(1, 111);
+        input.left = new Node(2, 112);
+        input.left.left = new Node(4, 113);
+        input.left.right = new Node(7, 114);
+        input.right = new Node(3, 115);
+        input.right.left = new Node(6, 116);
+        input.right.right = new Node(10, 117);
+
+        var expected = new Node(1, 111);
+        expected.left = new Node(2, 112);
+        expected.left.left = new Node(4, 113);
+        expected.left.left.right = new Node(0, 100);
+        expected.left.right = new Node(7, 114);
+        expected.right = new Node(3, 115);
+        expected.right.left = new Node(6, 116);
+        expected.right.right = new Node(10, 117);
+
+        var result = addNode(input, 0, false, 113, 100);
         expect(result).toMatchObject(expected);
     })
 })

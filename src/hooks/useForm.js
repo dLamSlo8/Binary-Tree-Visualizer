@@ -59,13 +59,6 @@ export default ({ initValues, validationRules }) => {
         }));
     };
 
-    useEffect(() => {
-        console.log('updated values');
-        if (formData) {
-            console.log('rip');
-            setFormData(initValues);
-        }
-    }, [initValues]);
 
-    return { formData, errorMapping, handleChange, handleSubmit };
+    return { formData, setFormData, errorMapping, handleChange, handleSubmit };
 }

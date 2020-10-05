@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import ActionSection from './components/ActionSection';
 import TreeSection from './components/TreeSection';
-import { Node, nodeToString } from '../../functions/tree';
+import { addNode, deleteSubtree, Node, nodeToString, replaceNodeValue } from '../../functions/tree';
 
 /**
  * -- State --
@@ -28,26 +28,27 @@ export default () => {
             left: '',
             right: ''
         });
-        setBsString(`[${value}, null, null]`);
     }
 
     const handleActiveNodeChange = useCallback((node) => setActiveNode(node), []);
 
-    const handleUpdateNode = useCallback(({ current, left, right }) => {
-        console.table({ current, left, right });
-        console.log(activeNode);
-        let rootCopy = new Node(0, 0, rootNode);
-        let dummyNode = new Node(0);
-        dummyNode.right = rootCopy;
-        console.log(dummyNode);
-        // const newNode = replaceNodeValue(dummyNode, parseInt(current), parseInt(left), parseInt(right), activeNode.uuid);
-        // console.log(newNode);
-        // setRootNode(newNode);
+    const handleUpdateNode = useCallback((current) => {
+        setRootNode(replaceNodeValue(rootNode, current, activeNode.uuid));
     }, [rootNode, activeNode]);
 
     const handleDeleteNode = useCallback(() => {
+        let rootCopy = new Node(0, 0, rootNode);
 
-    }, []);
+        setActiveNode(null);
+        setRootNode(deleteSubtree(rootCopy, activeNode.uuid));
+    }, [rootNode, activeNode]);
+
+    const handleAddChildren = useCallback(({ isLeft, value }) => {
+        let childValue = parseInt(value);
+        
+        setRootNode(addNode(rootNode, childValue, isLeft, activeNode.uuid));
+        setActiveNode((activeNode) => ({ ...activeNode, ...(isLeft ? { left: childValue } : { right: childValue })}));
+    }, [rootNode, activeNode]);
 
     useEffect(() => { // useEffect to update bsString on update to tree
         if (rootNode) {
@@ -57,7 +58,15 @@ export default () => {
 
     return (
         <section className="ct">
-            <ActionSection activeNode={activeNode} handleInit={handleInit} handleUpdateNode={handleUpdateNode} bsString={bsString}  />
+            <ActionSection 
+            initialized={!!rootNode}
+            rootNode={rootNode}
+            activeNode={activeNode} 
+            handleInit={handleInit} 
+            handleUpdateNode={handleUpdateNode} 
+            handleDeleteNode={handleDeleteNode} 
+            handleAddChildren={handleAddChildren}
+            bsString={bsString}  />
             <TreeSection rootNode={rootNode} activeUuid={activeNode ? activeNode.uuid : null} handleActiveNodeChange={handleActiveNodeChange} />
         </section>
     );
