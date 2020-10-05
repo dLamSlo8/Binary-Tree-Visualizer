@@ -2,6 +2,9 @@ import React from 'react';
 import useForm, { ValidationTypes } from '../../../hooks/useForm';
 import ActionUpdateForm from './ActionUpdateForm';
 import StringRepresentations from './StringRepresentations';
+import db from "../../../database.js";
+import firebase from 'firebase/app';
+import 'firebase/firestore';
 
 export default ({ initialized, activeNode, rootNode, handleInit, handleUpdateNode, handleAddChildren, handleDeleteNode, }) => {
 
@@ -15,6 +18,12 @@ export default ({ initialized, activeNode, rootNode, handleInit, handleUpdateNod
     });
 
     const handleSubmitInit = () => {
+        if (process.env.NODE_ENV === "development") {
+            let ref = db.collection("Uses").doc("Development");
+            ref.update({
+                CustomTreeInput: firebase.firestore.FieldValue.increment(1)
+            })
+        }
         setFormData({ root: '' });
         handleInit(formData.root);    
     };
