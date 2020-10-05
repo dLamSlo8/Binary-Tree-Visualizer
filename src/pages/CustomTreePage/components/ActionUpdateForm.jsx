@@ -55,11 +55,11 @@ export default ({ activeNode, handleUpdateNode, handleDeleteNode, handleAddChild
                 type="number"
                 value={updateFormData.current}
                 onChange={updateHandleChange} />
-                <button className="button button--space-t-sm button--full">Update Node</button>
+                <button className="button button--space-t-sm button--full">Update Node Value</button>
                 <button 
                 className="button button--space-t-sm button--space-b-sm button--full button--inverse button--warning" 
                 type="button"
-                onClick={(e) => handleDeleteNode()}>Delete Node</button>
+                onClick={(e) => handleDeleteNode()}>Delete Subtree</button>
             </form>
             {
                 (!activeNode.left || !activeNode.right) && (
@@ -76,7 +76,7 @@ export default ({ activeNode, handleUpdateNode, handleDeleteNode, handleAddChild
                                 type="number"
                                 value={leftFormData.left}
                                 onChange={leftHandleChange} />
-                                <button className={`button button--space-t-sm button--full ${!leftFormData.left ? 'button--disabled' : ''}`}>Add Left Child</button>
+                                <button className={`button button--space-t-sm button--full ${!leftFormData.left ? 'button--disabled' : ''}`} disabled={!leftFormData.left}>Add Left Child</button>
                             </form>
                             )
                         }
