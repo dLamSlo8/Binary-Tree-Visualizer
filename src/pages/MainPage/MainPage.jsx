@@ -50,7 +50,7 @@ export default () => {
                             </tr>
                             <tr>
                                 <td className="bs__control-cell"><strong>Zoom</strong></td>
-                                <td className="bs__control-cell">Shift + Scroll</td>
+                                 <td className="bs__control-cell">Shift + Scroll</td>
                                 <td className="bs__control-cell">Pinch/Spread</td>
                             </tr>
                         </tbody>
