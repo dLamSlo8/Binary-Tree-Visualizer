@@ -24,6 +24,12 @@ export default ({ initialized, activeNode, rootNode, handleInit, handleUpdateNod
                 CustomTreeInput: firebase.firestore.FieldValue.increment(1)
             })
         }
+        if (process.env.NODE_ENV === "production") {
+          let ref = db.collection("Uses").doc("Production");
+          ref.update({
+              CustomTreeInput: firebase.firestore.FieldValue.increment(1)
+          })
+      }
         setFormData({ root: '' });
         handleInit(formData.root);    
     };

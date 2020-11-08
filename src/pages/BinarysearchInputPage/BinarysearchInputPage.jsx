@@ -23,9 +23,9 @@ export default ({ treeString, setTreeString }) => {
         }
 
         if (process.env.NODE_ENV === "production") {
-            let ref = db.collection("Uses").doc("5WPHzCgbQL7TKudM6Hdy");
+            let ref = db.collection("Uses").doc("Production");
             ref.update({
-                production: firebase.firestore.FieldValue.increment(1)
+                TreeVisualizer: firebase.firestore.FieldValue.increment(1)
             })
         }
 
