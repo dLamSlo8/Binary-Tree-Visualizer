@@ -20,26 +20,32 @@ export class Node {
 
 /**
  * Returns array of steps that occur from inserting a node into the tree
+ * as well as the new tree
  * @param value - value of node to insert
  * @param node - root node of the tree
+ * @param uuid - uuid of node to create
  */
-export const insertNode = (value, node) => {
-    function helper(value, node) {
+export const insertNode = (value, node, uuid = null) => {
+    function helper(value, node, uuid, moves) {
         if (node == null) {
-            var newNode = new Node(value);
-            moves.append(newNode.value);
+            var newNode = new Node(value, uuid);
+            moves.push(newNode.uuid);
             return newNode;
         }
-        moves.append(node.value);
-        if (node.value <= value) {
-            node.left = helper(node.left, value);
+        moves.push(node.uuid);
+        if (value <= node.value) {
+            node.left = helper(value, node.left, uuid, moves);
         } else {
-            node.right = helper(node.right, value)
+            node.right = helper(value, node.right, uuid, moves)
         }
+
+        return node;
     }
 
-    var rootCopy = new Node(0, 0, node);
+    var rootCopy = new Node(0, 1, node);
     var moves = [];
-    helper(value, rootCopy, moves);
-    return moves;
+
+    helper(value, rootCopy, uuid, moves);
+    return [moves, rootCopy];
 }
+
