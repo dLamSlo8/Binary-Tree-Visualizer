@@ -76,19 +76,26 @@ export const deleteNode = (node, value) => {
                 return node.left;
             }
             else {
-                return inorderSuccessor(rootCopy, node);
+                var tmp = inorderSuccessor(rootCopy, node);
+                tmp.left = node.left;
+                tmp.right = node.right;
+                node.left = null;
+                node.right = null;
+                return tmp;
             }
         }
         else if (value < node.value) {
-            let left = helper(node.left, value, rootCopy, moves);
-            node.left = left ? left : node.left;
+            // let left = helper(node.left, value, rootCopy, moves);
+            // node.left = left ? left : node.left;
+            node.left = helper(node.left, value, rootCopy, moves);
         }
         else {
-            let right = helper(node.right, value, rootCopy, moves);
-            node.right = right ? right : node.right;
+            // let right = helper(node.right, value, rootCopy, moves);
+            // node.right = right ? right : node.right;
+            node.right = helper(node.right, value, rootCopy, moves);
         }
 
-        
+        return node;
     }
 
     /**
@@ -98,41 +105,67 @@ export const deleteNode = (node, value) => {
      * @param nodeForSuccessor - node that we want to find succesor for
      */
     function inorderSuccessor(node, nodeForSuccessor) {
-        function findMin(node, parent) {
+        function findMin(node, isRightChild, isLeftChild) {
+            // found last node in left branch
             if (node.left == null) {
-                if (parent) {
-                    parent.right = null;
+                // remove the node from parent node
+                if (isRightChild && isLeftChild == null) {
+                    isRightChild.right = null;
+                }
+                else if (isRightChild == null && isLeftChild) {
+                    isLeftChild.left = null;
                 }
                 return node;
             }
 
-            var left = findMin(node.left, null);
+            // var left = findMin(node.left, null, node);
 
-            if (left) {
-                node.left = null;
-                return left;
-            }
+            // // if left is a value, then it returned the node
+            // // so need to remove it
+            // if (left) {
+            //     console.log("how screwed");
+            //     node.left = null;
+            //     return left;
+            // }
+            return findMin(node.left, null, node)
         }
 
-        if (nodeForSuccessor.right == null) {
-            let curr = node.left;
+        // function findMax(node, parent) {
+        //     if (node.right == null) {
+        //         if (parent) {
+        //             parent.left = null;
+        //         }
+        //         return node;
+        //     }
 
-            // keep going through right subtree to get largest possible value
-            while (curr && curr.value < nodeForSuccessor.value) {
-                curr = curr.right;
-            }
-            return curr;
+        //     var left = findMin(node.left, null);
 
-        }
+        //     if (left) {
+        //         node.left = null;
+        //         return left;
+        //     }
+        // }
 
-        let successor = findMin(nodeForSuccessor.right, nodeForSuccessor);
-        return successor;
+        // im not sure if we ever reach this condition
+        // because if we do then that means one of the subtree is missing
+        // which means we don't go this route
+        // if (nodeForSuccessor.right == null) {
+        //     let curr = node;
+        //     let successor = node;
+        //     // keep going through right subtree to get largest possible value
+        //     while (curr && curr.value < nodeForSuccessor.value) {
+        //         curr = curr.right;
+        //     }
+        //     return curr;
+
+        // }
+
+        return findMin(nodeForSuccessor.right, nodeForSuccessor, null);
     }
 
     var rootCopy = new Node(0, 1, node);
     var moves = [];
 
-    helper(rootCopy, uuid, rootCopy, moves);
-    return [moves, rootCopy];
+    return [moves, helper(rootCopy, value, rootCopy, moves)];
 }
 
