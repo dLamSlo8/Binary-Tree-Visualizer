@@ -109,10 +109,10 @@ export const deleteNode = (node, value) => {
             // found last node in left branch
             if (node.left == null) {
                 // remove the node from parent node
-                if (isRightChild && isLeftChild == null) {
+                if (isRightChild != null && isLeftChild == null) {
                     isRightChild.right = null;
                 }
-                else if (isRightChild == null && isLeftChild) {
+                else if (isRightChild == null && isLeftChild != null) {
                     isLeftChild.left = null;
                 }
                 return node;
