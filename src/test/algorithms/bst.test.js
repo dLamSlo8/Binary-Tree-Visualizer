@@ -213,9 +213,12 @@ describe("Test deleteNode function", () => {
         expectedTree.right.right = new Node(80, 7);
 
         var expectedMoves = [1];
+        var expectedNode = {"id": 6}
 
         var result = deleteNode(input, 50);
-        expect(result[0]).toEqual(expectedMoves);
+        
+        expect(result[0].slice(0, -1)).toEqual(expectedMoves);
+        expect(result[0][result.length - 1]).toMatchObject(expectedNode);
         expect(result[1]).toMatchObject(expectedTree);
 
         var input = new Node(50, 1);
@@ -226,8 +229,11 @@ describe("Test deleteNode function", () => {
         expectedTree.left = new Node(40, 2);
 
         var expectedMoves = [1];
+        var expectedNode = {"id": 5};
         var result = deleteNode(input, 50);
-        expect(result[0]).toEqual(expectedMoves);
+
+        expect(result[0].slice(0, -1)).toEqual(expectedMoves);
+        expect(result[0][result.length - 1]).toMatchObject(expectedNode);
         expect(result[1]).toMatchObject(expectedTree);
 
         var input = new Node(50, 1);
@@ -250,11 +256,12 @@ describe("Test deleteNode function", () => {
         expectedTree.right.right = new Node(77, 6);
 
         var expectedMoves = [1];
+        var expectedNode = {"id": 10};
         var result = deleteNode(input, 50);
 
-        console.log(result);
-        console.log(result[1].right);
-        expect(result[0]).toEqual(expectedMoves);
+       
+        expect(result[0].slice(0, -1)).toEqual(expectedMoves);
+        expect(result[0][result.length - 1]).toMatchObject(expectedNode);
         expect(result[1]).toMatchObject(expectedTree);
     })
 
@@ -273,10 +280,12 @@ describe("Test deleteNode function", () => {
         expectedTree.right.right = new Node(11, 7);
 
         var expectedMoves = [1];
+        var expectedNode = {"id": 6};
 
         var result = deleteNode(input, 5);
         
-        expect(result[0]).toEqual(expectedMoves);
+        expect(result[0].slice(0, -1)).toEqual(expectedMoves);
+        expect(result[0][result.length - 1]).toMatchObject(expectedNode);
         expect(result[1]).toMatchObject(expectedTree);
 
     })

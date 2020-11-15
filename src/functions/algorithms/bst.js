@@ -77,6 +77,7 @@ export const deleteNode = (node, value) => {
             }
             else {
                 var tmp = inorderSuccessor(rootCopy, node);
+                moves.push({"id": tmp.uuid});
                 tmp.left = node.left;
                 tmp.right = node.right;
                 node.left = null;
