@@ -1,7 +1,20 @@
-import { insertNode, deleteNode } from "../../functions/algorithms/bst.js";
+import { insertNode, deleteNode, findNode } from "../../functions/algorithms/bst.js";
 import { Node } from "../../functions/algorithms/bst.js";
 
 describe("Test insertNode function", () => {
+    it ("Should create a new node if tree does not exist", () => {
+        var input = null;
+
+        var expectedTree = new Node(5, 4);
+
+        var expectedMoves = [4];
+
+        var result = insertNode(input, 5, 4);
+
+        expect(result[0]).toEqual(expectedMoves);
+        expect(result[1]).toMatchObject(expectedTree);
+    })
+
     it ("Should give proper moves array and tree", () => {
         var input = new Node(5, 1);
         input.left = new Node(5, 2);
@@ -289,6 +302,55 @@ describe("Test deleteNode function", () => {
         expect(result[1]).toMatchObject(expectedTree);
 
     })
+})
 
-    
+describe("Test findNode function", () => {
+    it ("Should throw error if node does not exist", () => {
+        var input = new Node(5, 1);
+        input.left = new Node(2, 2);
+        input.left.right = new Node(3, 3);
+        
+        expect(() => findNode(input, 4)).toThrow("A node with this value does not exist in the tree");
+
+        var input = null;
+        expect(() => findNode(input, 4)).toThrow("A node with this value does not exist in the tree");
+    })
+
+    it ("Should find node if it exists in tree", () => {
+        var input = new Node(5, 1);
+        input.left = new Node(2, 2);
+        input.left.left = new Node(-1, 10)
+        input.left.right = new Node(3, 3);
+        input.left.right.right = new Node(4, 4);
+
+        var expectedMoves = [1, 2, 3, 4];
+        
+        var result = findNode(input, 4);
+        expect(result).toEqual(expectedMoves);
+
+        var input = new Node(6, 1);
+        input.left = new Node(5, 2);
+        input.left.left = new Node(5, 3);
+        input.right = new Node(10, 5);
+        input.right.left = new Node(8, 6);
+        input.right.right = new Node(11, 7);
+
+        var expectedMoves = [1, 2];
+        
+        var result = findNode(input, 5);
+        expect(result).toEqual(expectedMoves);
+
+        var input = new Node(6, 1);
+        input.left = new Node(5, 2);
+        input.left.left = new Node(5, 3);
+        input.right = new Node(10, 5);
+        input.right.left = new Node(8, 6);
+        input.right.right = new Node(11, 7);
+
+        var expectedMoves = [1, 5, 7];
+        
+        var result = findNode(input, 11);
+        expect(result).toEqual(expectedMoves);
+    })
+
 })

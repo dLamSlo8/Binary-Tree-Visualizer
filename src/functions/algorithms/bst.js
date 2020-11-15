@@ -20,7 +20,7 @@ export class Node {
 
 /**
  * Returns array of steps that occur from inserting a node into the tree
- * as well as the new tree
+ * as well as the new tree. Break ties by inserting into left subtree.
  * @param node - root node of the tree
  * @param value - value of node to insert
  * @param uuid - uuid of node to create
@@ -44,16 +44,22 @@ export const insertNode = (node, value, uuid = null) => {
         return node;
     }
 
+    
+    // if tree doesn't exist create a new node;
+    if (node == null) {
+        var newNode = new Node(value, uuid);
+        return [[newNode.uuid], newNode]
+    }
+
     var rootCopy = new Node(0, 1, node);
     var moves = [];
-
     helper(rootCopy, value, uuid, moves);
     return [moves, rootCopy];
 }
 
 /**
  * Returns array of steps that occur from deleting a node in the tree
- * as well as the new tree
+ * as well as the new tree. Delete first node reached when duplicate value.
  * @param node - root node of the tree
  * @param value - value of node to delete
  */
@@ -170,3 +176,29 @@ export const deleteNode = (node, value) => {
     return [moves, helper(rootCopy, value, rootCopy, moves)];
 }
 
+/**
+ * Returns array of steps that occur from finding a node in the tree
+ * @param node - root node of tree structure
+ * @param value - value of node to find
+ */
+export const findNode = (node, value) => {
+    function helper(node, value, moves) {
+        if (node == null) {
+            throw "A node with this value does not exist in the tree";
+        }
+        moves.push(node.uuid);
+
+        if (node.value === value) {
+            return;
+        }
+        else if (value <= node.value) {
+            helper(node.left, value, moves);
+        } 
+        else {
+            helper(node.right, value, moves);
+        }
+    }
+    var moves = [];
+    helper(node, value, moves);
+    return moves;
+}
