@@ -72,7 +72,7 @@ export default ({ treeString, setTreeString }) => {
                         )
                     }
                 </div>
-                <button className="button button--space-t">Visualize</button>
+                <button id="binarysearch-input" className="button button--space-t">Visualize</button>
             </form>
             {
                 parseErr && (

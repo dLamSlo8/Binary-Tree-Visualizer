@@ -58,7 +58,7 @@ export default ({ initialized, activeNode, rootNode, handleInit, handleUpdateNod
                                     <p className="error error--input">{errorMapping.root}</p>
                                 )
                             }
-                            <button className={`button ${formData.root === '' ? 'button--disabled' : ''}`} disabled={formData.root === ''}>Initialize tree</button>
+                            <button id="custom-tree" className={`button ${formData.root === '' ? 'button--disabled' : ''}`} disabled={formData.root === ''}>Initialize tree</button>
                         </form>
                     </>
                 )
