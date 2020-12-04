@@ -1,9 +1,7 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { parseTree } from '../../functions/tree';
 import BinaryTree from './components/BinaryTree';
-import db from "../../database.js";
-import firebase from 'firebase/app';
-import 'firebase/firestore';
+
 
 export default ({ treeString, setTreeString }) => {
 
@@ -14,20 +12,6 @@ export default ({ treeString, setTreeString }) => {
 
     const handleVisualize = (e) => { // 
         e.preventDefault();
-
-        if (process.env.NODE_ENV === "development") {
-            let ref = db.collection("Uses").doc("Development");
-            ref.update({
-                TreeVisualizer: firebase.firestore.FieldValue.increment(1)
-            })
-        }
-
-        if (process.env.NODE_ENV === "production") {
-            let ref = db.collection("Uses").doc("Production");
-            ref.update({
-                TreeVisualizer: firebase.firestore.FieldValue.increment(1)
-            })
-        }
 
         setInputErr(!treeString);
 
