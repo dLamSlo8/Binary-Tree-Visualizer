@@ -449,7 +449,7 @@ export const nodeToD3 = (node) => {
         .attr('x1', function(d) {return d.source.x;})
         .attr('y1', function(d) {return d.source.y;})
         .attr('x2', function(d) {return d.target.x;})
-        .attr('y2', function(d) {return d.target.y;});
+        .attr('y2', function(d) {return d.target.y;});  
     // Create individual nodes
     const node = canvas.select('g.nodes')
         .selectAll('.node') 
@@ -473,12 +473,6 @@ export const nodeToD3 = (node) => {
         .attr('text-anchor', 'middle')
         .attr('dy', '6')
         .attr('font-family', '"Lora", serif');
-    // canvas.select('g.nodes')
-    //     .selectAll('.text')
-    //     .data(nodes)
-    //     .enter()
-    //     .append('text')
-
 
     return { nodes };
  }

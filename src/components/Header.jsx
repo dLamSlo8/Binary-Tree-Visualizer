@@ -9,6 +9,10 @@ export default () => {
                 binary tree visualization tool that exists in other sites like LeetCode. This tool helps to resolve that. You can either input the tree array given by binarysearch,
                 or create your own tree and copy it to binarysearch as a test case. The resulting tree is both pannable and zoomable.
             </p>
+            <p className="app-header__subheading app-header__subheading--edit">
+                NOTE: The binarysearch website has since implemented a visualization for binary trees. Though this means this web app is no longer necessary, the team
+                behind this is now working on something bigger, and we can't wait to share in the coming months.
+            </p>
         </header>
     )
 }

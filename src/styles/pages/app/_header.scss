@@ -10,7 +10,6 @@
     
     &__subheading {
         font-family: var(--font-secondary);
-        font-weight: bold;
         font-size: 1rem;
         @include mq('sm') {
             font-size: 1.25rem;
@@ -19,6 +18,15 @@
         text-align: center;
         max-width: 1000px;
         margin-top: 0;
+
+        &--edit {
+            padding: 2rem;
+            border-radius: 0.5rem;
+            font-weight: bold;
+            background-color: var(--color-complementary-light);
+            color: var(--color-complementary);
+            margin-top: 3rem;
+        }
     }
 
     &__subheading-strong {
